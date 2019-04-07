@@ -8,10 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/category" />
-            <option value="$PROJECT_DIR$/enviroment" />
             <option value="$PROJECT_DIR$/response_interceptor" />
-            <option value="$PROJECT_DIR$/user_login" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
