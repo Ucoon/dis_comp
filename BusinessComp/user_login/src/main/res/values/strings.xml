@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="userlogin_error_mobile">登录错误，手机号码为空</string>
+    <string name="userlogin_error_validcode">用户登录错误，手机短信验证码不能为空</string>
+    <string name="userlogin_error_http">用户登录失败，通讯模组没有初始化</string>
+    <string name="input_mobile_error_blank">亲，输入手机号码进行验证</string>
+    <string name="input_mobile_error_length">亲，请输入11位有效手机号码进行注册~</string>
+    <string name="input_mobile_error_illegal">亲，请输入11位有效手机号码进行注册~</string>
+</resources>
