@@ -5,14 +5,18 @@ package com.bristua.ft.component.userlogin;
  * @author richsjeson
  */
 public class UserLoginConstant {
-
-    public  final static int  USER_TYPE_MOBILE=0;
-
-    public  final static int USER_TYPE_WX=1;
+    /**
+     * 手机登录的方法
+     */
+    public  final static String  USER_METHOD_MOBILE="login";
+    /**
+     * 微信登录的方法
+     */
+    public  final static String USER_METHOD_WX="wxlogin";
     /**
      * 用户登录模组
      */
-    public  final static int USER_LOGIN_MODULE=11;
+    public  final static String USER_LOGIN_MODULE="account";
     /**
      * 手机号
      */

@@ -6,4 +6,5 @@
     <string name="input_mobile_error_blank">亲，输入手机号码进行验证</string>
     <string name="input_mobile_error_length">亲，请输入11位有效手机号码进行注册~</string>
     <string name="input_mobile_error_illegal">亲，请输入11位有效手机号码进行注册~</string>
+    <string name="userlogin_failure_parser">用户登录模块中，数据解析失败，请检查传入的参数是否符合json合法参数</string>
 </resources>

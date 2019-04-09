@@ -1,8 +1,5 @@
 package com.bristua.ft.component.userlogin.callback;
-
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.bristua.ft.component.userlogin.wrapper.UserWrapper;
 
 /**
