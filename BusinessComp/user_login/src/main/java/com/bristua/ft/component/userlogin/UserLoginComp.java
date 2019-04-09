@@ -8,9 +8,11 @@ import com.bristua.framework.define.IFlutterResult;
 import com.bristua.framework.define.annotation.Router;
 import com.bristua.framework.define.router.IRouteMeta;
 import com.bristua.framework.logger.Logger;
+import com.bristua.ft.component.userlogin.domain.UserLoginDomainFactory;
 import com.bristua.ft.component.userlogin.event.MobileEvent;
 import com.bristua.ft.component.userlogin.business.IUserLoginBusiness;
 import com.bristua.ft.component.userlogin.business.UserLoginBuisinessImpl;
+import com.bristua.ft.component.userlogin.repository.UserLoginRepository;
 import com.nd.sdp.android.serviceloader.annotation.Service;
 
 /**
@@ -47,6 +49,8 @@ public class UserLoginComp implements IComponent {
         //模组登录成功后，记得可以执行卸载了 todo richsjeson 是否忘记了卸载业务服务？？？？
         //AppConfig.getInstance().getAppContext().unregisterBusinessManager(UserLoginConstant.USER_LOGIN_MODULE);
         MobileEvent.getInstance().release();
+        UserLoginDomainFactory.getFactory().release();
+        UserLoginRepository.getFactory().release();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.bristua.ft.component.userlogin.restapi;
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -17,5 +19,5 @@ public interface IMobileUserLoginApi {
     @FormUrlEncoded
     @POST("/api/user/login")
     @Headers("Content-Type:application/json")
-    Observable<String> userLogin(@Field("phone") String pMobile, @Field("inviteCode") String pInviteCode, @Field("phoneCode")String pPhoneCode);
+    Observable<String> userLogin(@Body RequestBody params);
 }
