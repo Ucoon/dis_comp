@@ -38,8 +38,8 @@ public class UserLoginRepository {
      */
     public   IUserInfo getUserInfo(@NonNull String pMethod){
 
-        IUserInfo userInfo;
-        if(mUserInfos.isEmpty() || mUserInfos.get(pMethod)==null){
+        IUserInfo userInfo=mUserInfos.get(pMethod);
+        if(mUserInfos.isEmpty() || userInfo==null){
             switch (pMethod) {
                 case UserLoginConstant.USER_METHOD_MOBILE:
                     userInfo=new MobileUserInfo();
@@ -54,9 +54,8 @@ public class UserLoginRepository {
                     break;
             }
             mUserInfos.put(pMethod,userInfo);
-            return userInfo;
         }
-        return mUserInfos.get(pMethod);
+        return userInfo;
     }
 
     /**

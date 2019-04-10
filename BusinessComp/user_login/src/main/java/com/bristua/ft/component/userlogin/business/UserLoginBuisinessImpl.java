@@ -32,29 +32,6 @@ public class UserLoginBuisinessImpl implements IUserLoginBusiness, IBusinessMana
     public UserLoginBuisinessImpl() {
         mContext = AppConfig.getInstance().getAppContext().getContext();
     }
-
-    public void login(@NonNull String pProtocol, @NonNull IFlutterResult pCallback) {
-
-//        //创建手机输入事件
-//        MobileEvent.newInstance(pCallback);
-//        //此处将对Protocl进行解析
-//        UserLoginRepository userLoginRepository=UserLoginRepository.getFactory();
-//        userLoginRepository.setUserType(getUserType(pProtocol));
-//        //1.从json中获取到参数值
-//        MobileUserInfo userInfo= (MobileUserInfo) userLoginRepository.getUserInfo(UserLoginConstant.USER_TYPE_MOBILE);
-//        userInfo.setMobilePhone(UserLoginConstant.TEST_USER_MOBILEPHONE);
-//        userInfo.setInviteCode(UserLoginConstant.TEST_USER_INVITE_CODE);
-//        userInfo.setPhoneCode(UserLoginConstant.TEST_USER_MOBILEPHONE_CODE);
-//        //执行用户登录模块
-//        UserLoginDomain userLoginDoman=UserLoginDomainFactory.getDomain(userLoginRepository.getUserType());
-//        userLoginDoman.login(pCallback);
-    }
-
-    public void logout(@NonNull IFlutterResult pCallback) {
-        //todo zyb 执行怎么个操作，注销需要连接后端进行注销吧
-    }
-
-
     @Override
     public void exec(@NonNull String pProtocol, @NonNull IFlutterResult pCallback) {
 

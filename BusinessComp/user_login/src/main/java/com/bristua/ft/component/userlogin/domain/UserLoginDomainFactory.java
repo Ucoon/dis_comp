@@ -1,8 +1,5 @@
 package com.bristua.ft.component.userlogin.domain;
-
 import com.bristua.ft.component.userlogin.UserLoginConstant;
-import com.bristua.ft.component.userlogin.repository.UserLoginRepository;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +33,8 @@ public class UserLoginDomainFactory {
      * @return
      */
     public  UserLoginDomain getDomain(String  pMethod) {
-        UserLoginDomain domain;
-        if(mDomains.isEmpty() || mDomains.get(pMethod)== null){
+        UserLoginDomain domain=mDomains.get(pMethod);
+        if(mDomains.isEmpty() || domain== null){
             switch (pMethod) {
                 case UserLoginConstant.USER_METHOD_MOBILE:
                     domain=new MobileUserDomain();
@@ -50,9 +47,8 @@ public class UserLoginDomainFactory {
                     break;
             }
             mDomains.put(pMethod,domain);
-            return domain;
         }
-        return mDomains.get(pMethod);
+        return domain;
     }
 
     public  void release() {
