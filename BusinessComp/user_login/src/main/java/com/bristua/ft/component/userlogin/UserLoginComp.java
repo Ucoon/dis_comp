@@ -70,6 +70,7 @@ public class UserLoginComp implements IComponent {
         if (TextUtils.isEmpty(params)) {
             return;
         }
+        MobileEvent.newInstance(mResult);
         //执行用户登录模块
         IUserLoginBusiness userLoginBusiness= (IUserLoginBusiness) AppConfig.getInstance().getAppContext().getBusinessManager(UserLoginConstant.USER_LOGIN_MODULE);
         userLoginBusiness.exec(params,mResult);

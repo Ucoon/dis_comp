@@ -3,6 +3,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bristua.framework.appconfig.AppConfig;
 import com.bristua.framework.define.IFlutterResult;
@@ -10,14 +11,17 @@ import com.bristua.framework.system.IBusinessManager;
 import com.bristua.ft.component.userlogin.R;
 import com.bristua.ft.component.userlogin.domain.UserLoginDomain;
 import com.bristua.ft.component.userlogin.domain.UserLoginDomainFactory;
+import com.bristua.ft.component.userlogin.event.MobileEvent;
 import com.bristua.ft.component.userlogin.repository.MobileUserInfo;
 import com.bristua.ft.component.userlogin.repository.UserLoginRepository;
 import com.bristua.ft.component.userlogin.repository.WxUserInfo;
 import com.bristua.ft.component.userlogin.wrapper.MobileUserWrapper;
+import com.bristua.ft.component.userlogin.wrapper.UserSmsWrapper;
 import com.bristua.ft.component.userlogin.wrapper.WxUserWrapper;
 import com.bristua.ft.protocol.Protocol;
 import com.bristua.ft.protocol.ProtocolFactory;
 import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_MOBILE;
+import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_SMSCODE;
 import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_WX;
 
 /**
@@ -64,6 +68,9 @@ public class UserLoginBuisinessImpl implements IUserLoginBusiness, IBusinessMana
             case USER_METHOD_WX:
                 gotoWxLogin(protocol,userLoginRepository,parserFromProtocol,pCallback);
                 break;
+            case USER_METHOD_SMSCODE:
+                gotoSmsCode(protocol,userLoginRepository,parserFromProtocol,pCallback);
+                break;
             default:
                 gotoMobileLogin(protocol,userLoginRepository,parserFromProtocol,pCallback);
                 break;
@@ -83,10 +90,10 @@ public class UserLoginBuisinessImpl implements IUserLoginBusiness, IBusinessMana
      */
     private void gotoMobileLogin(@NonNull Protocol protocol,@NonNull UserLoginRepository pRepository,@NonNull String pMessage, @NonNull IFlutterResult pCallback){
         //继续解析出第2个
-        MobileUserWrapper userWrapper= JSONObject.parseObject((String) protocol.getData(),MobileUserWrapper.class);
-
+        String data=JSON.toJSONString(protocol.getData());
+        MobileUserWrapper userWrapper= JSONObject.parseObject(data,MobileUserWrapper.class);
         String phone=userWrapper.getPhone();
-        String smsCode=userWrapper.getPhone();
+        String smsCode=userWrapper.getSmsCode();
 
         if(userWrapper == null || TextUtils.isEmpty(phone) || TextUtils.isEmpty(smsCode)){
             pCallback.success(null,500,pMessage);
@@ -111,8 +118,8 @@ public class UserLoginBuisinessImpl implements IUserLoginBusiness, IBusinessMana
      */
     private void gotoWxLogin(@NonNull Protocol protocol,@NonNull UserLoginRepository pRepository,@NonNull String pMessage, @NonNull IFlutterResult pCallback){
         //继续解析出第2个
-        WxUserWrapper userWrapper= JSONObject.parseObject((String) protocol.getData(),WxUserWrapper.class);
-
+        String data=JSON.toJSONString(protocol.getData());
+        WxUserWrapper userWrapper= JSONObject.parseObject(data,WxUserWrapper.class);
         String appid=userWrapper.getAppid();
         String code=userWrapper.getCode();
         String scope=userWrapper.getScope();
@@ -132,6 +139,32 @@ public class UserLoginBuisinessImpl implements IUserLoginBusiness, IBusinessMana
         userInfo.setCode(code);
         userInfo.setGrantType(grantType);
         userInfo.setScope(scope);
+        //生成对象
+    }
+
+
+    /**
+     * 用户手机登录
+     * @param protocol
+     * @param pRepository
+     */
+    private void gotoSmsCode(@NonNull Protocol protocol,@NonNull UserLoginRepository pRepository,@NonNull String pMessage, @NonNull IFlutterResult pCallback){
+        //继续解析出第2个
+        String data=JSON.toJSONString(protocol.getData());
+        UserSmsWrapper userWrapper= JSONObject.parseObject(data, UserSmsWrapper.class);
+        String type=userWrapper.getType();
+        String phone=userWrapper.getPhone();
+        if(userWrapper == null || TextUtils.isEmpty(type) || TextUtils.isEmpty(phone)){
+            pCallback.success(null,500,pMessage);
+            return;
+        }
+        //读取参数信息
+        MobileUserInfo userInfo= (MobileUserInfo) pRepository.getUserInfo(USER_METHOD_MOBILE);
+        if(userInfo == null){
+            pCallback.success(null,500,pMessage);
+            return;
+        }
+        userInfo.setMobilePhone(phone);
         //生成对象
     }
 }

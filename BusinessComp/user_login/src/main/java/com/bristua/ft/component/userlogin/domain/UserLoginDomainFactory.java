@@ -42,6 +42,9 @@ public class UserLoginDomainFactory {
                 case UserLoginConstant.USER_METHOD_WX:
                     domain=new WxUserDomain();
                     break;
+                case UserLoginConstant.USER_METHOD_SMSCODE:
+                    domain=new MobileUserDomain();
+                    break;
                 default:
                     domain=new MobileUserDomain();
                     break;

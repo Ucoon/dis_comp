@@ -14,6 +14,10 @@ public class UserLoginConstant {
      */
     public  final static String USER_METHOD_WX="wxlogin";
     /**
+     * 获取短信验证码
+     */
+    public  final static String USER_METHOD_SMSCODE="getSmsCode";
+    /**
      * 用户登录模组
      */
     public  final static String USER_LOGIN_MODULE="account";
