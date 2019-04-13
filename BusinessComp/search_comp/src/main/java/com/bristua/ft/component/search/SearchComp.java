@@ -56,7 +56,6 @@ public class SearchComp implements IComponent {
         if (TextUtils.isEmpty(params)) {
             return;
         }
-        //执行用户登录模块
         ISearchBusiness business= (ISearchBusiness) AppConfig.getInstance().getAppContext().getBusinessManager(SearchConstant.COMP_MODULE_SEARCH);
         business.exec(params,mResult);
     }

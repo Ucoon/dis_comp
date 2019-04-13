@@ -13,4 +13,5 @@ public class SearchConstant {
     public final static int SEARCH_TYPE_FINDHISTORY=311;
 
     public final static int SEARCH_TYPE_SEARCHBYSERVER=312;
+
 }
