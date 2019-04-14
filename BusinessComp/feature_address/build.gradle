@@ -1,0 +1,44 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.nd.sdp.android.serviceloader:service-loader:1.0.9'
+    implementation 'com.nd.sdp.android.serviceloader:service-loader-annotation:1.0.9'
+    annotationProcessor 'com.nd.sdp.android.serviceloader:service-loader-compiler:1.0.9'
+    implementation 'com.bristua.framework:rx_manager:1.0.4-SNAPHOST'
+    implementation 'com.alibaba:fastjson:1.2.31'
+    implementation 'com.ft.business.component:protocol:2.0.0-SNAPHOST'
+    implementation 'com.bristua.framework:common_api:2.0.0-SNAPHOST'
+    implementation 'com.bristua.framework:https:2.0.0-SNAPHOST'
+    implementation 'com.bristua.framework:logger:1.0.4-SNAPHOST'
+    implementation 'com.bristua.framework:domain:1.0.0-SNAPHOST'
+}
