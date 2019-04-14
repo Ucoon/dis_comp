@@ -8,7 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/user_login" />
+            <option value="$PROJECT_DIR$/rebate" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

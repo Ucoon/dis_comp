@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">rebate</string>
+    <string name="rebate_error_http">返现模组获取数据失败，retrofit未初始化</string>
+</resources>
