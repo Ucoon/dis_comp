@@ -16,6 +16,5 @@ public class AddressAddDomain implements IDomain {
     public void execute(@NonNull IEntity pEntity, @NonNull IFlutterResult pResult) {
         AddressEntity entity= (AddressEntity) pEntity;
         Address address=entity.getObjectValue();
-
     }
 }

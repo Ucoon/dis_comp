@@ -19,6 +19,7 @@ public class AddBusiness implements IManager {
     @Override
     public void execute(@NonNull IFlutterResult pResult, @NonNull IEntity pEntity, @NonNull String pData, @NonNull String pMethod, @NonNull Context context) {
         Address address= JSONObject.parseObject(pData,Address.class);
+        //此处需要验证address地址的参数是否完整
         if(address == null){
             return;
         }
