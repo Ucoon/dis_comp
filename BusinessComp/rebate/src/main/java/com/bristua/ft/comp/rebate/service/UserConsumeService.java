@@ -27,7 +27,7 @@ public class UserConsumeService {
     /**
      * 获取返现详情
      */
-    public static void findIntegral(int pageSize, int pageNum, @NonNull IFlutterResult pResult) {
+    public static void queryUserConsumer(@NonNull IFlutterResult pResult) {
 
         AndroidRxManager.clear();
         AppContext appContext = AppConfig.getInstance().getAppContext();

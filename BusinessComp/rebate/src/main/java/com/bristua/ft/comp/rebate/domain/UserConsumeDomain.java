@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.bristua.framework.define.IFlutterResult;
 import com.bristua.ft.comp.rebate.entity.RebateEntity;
 import com.bristua.ft.comp.rebate.service.FindRebatesService;
+import com.bristua.ft.comp.rebate.service.UserConsumeService;
 import com.bristua.ft.comp.rebate.wrapper.RebateWrapper;
 import com.nd.adhoc.framework.domain.IDomain;
 import com.nd.adhoc.framework.entity.IEntity;
@@ -16,7 +17,6 @@ import com.nd.adhoc.framework.entity.IEntity;
 public class UserConsumeDomain implements IDomain {
     @Override
     public void execute(@NonNull IEntity pEntity, @NonNull IFlutterResult pResult) {
-
-
+        UserConsumeService.queryUserConsumer(pResult);
     }
 }
