@@ -10,6 +10,7 @@ import com.bristua.framework.rx.AndroidRxManager;
 import com.bristua.framework.system.AppContext;
 import com.bristua.ft.comp.rebate.R;
 import com.bristua.ft.comp.rebate.restapi.IQueryFirendConsumeApi;
+import com.bristua.ft.comp.rebate.restapi.IQueryUserConsumeApi;
 import com.bristua.ft.protocol.ProtocolFactory;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,7 +23,7 @@ import retrofit2.Retrofit;
  *
  * @author richsjeson
  */
-public class FindRebatesService {
+public class UserConsumeService {
     /**
      * 获取返现详情
      */
@@ -38,8 +39,8 @@ public class FindRebatesService {
             pResult.success(null, 500, errorTip);
             return;
         }
-        IQueryFirendConsumeApi restApi = retrofit.create(IQueryFirendConsumeApi.class);
-        Disposable disposable = restApi.queryIntegral(pageNum,pageSize)
+        IQueryUserConsumeApi restApi = retrofit.create(IQueryUserConsumeApi.class);
+        Disposable disposable = restApi.queryUserConsume()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
                     @Override

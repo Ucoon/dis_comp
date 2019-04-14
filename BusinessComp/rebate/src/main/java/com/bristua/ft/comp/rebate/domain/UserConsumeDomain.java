@@ -13,11 +13,10 @@ import com.nd.adhoc.framework.entity.IEntity;
  * @author richsjeson
  * 获取返现列表的统计信息
  */
-public class FindRebatesDomain implements IDomain {
+public class UserConsumeDomain implements IDomain {
     @Override
     public void execute(@NonNull IEntity pEntity, @NonNull IFlutterResult pResult) {
-        RebateEntity rebateEntity= (RebateEntity) pEntity;
-        RebateWrapper rebateWrapper=rebateEntity.getObjectValue();
-        FindRebatesService.findIntegral(rebateWrapper.getPageNo(),rebateWrapper.getPageSize(),pResult);
+
+
     }
 }
