@@ -1,5 +1,10 @@
 package com.bristua.ft.component.userlogin.domain;
+import android.support.annotation.NonNull;
+
 import com.bristua.ft.component.userlogin.UserLoginConstant;
+import com.nd.adhoc.framework.domain.IDomain;
+import com.nd.adhoc.framework.domain.IDomainFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,11 +13,11 @@ import java.util.Map;
  *
  * @author richsjeson
  */
-public class UserLoginDomainFactory {
+public class UserLoginDomainFactory implements IDomainFactory {
 
-    private Map<String,UserLoginDomain> mDomains=new HashMap<>();
+    private Map<String,IDomain> mDomains=new HashMap<>();
 
-    private static UserLoginDomainFactory mInstance=null;
+    private static UserLoginDomainFactory sInstance=null;
 
     private UserLoginDomainFactory(){
 
@@ -21,40 +26,24 @@ public class UserLoginDomainFactory {
 
     public static UserLoginDomainFactory getFactory(){
 
-        if(mInstance==null){
-            mInstance=new UserLoginDomainFactory();
+        if(sInstance==null){
+            sInstance=new UserLoginDomainFactory();
         }
-        return mInstance;
+        return sInstance;
     }
 
-    /**
-     * 获取用户登录的领域
-     * @param
-     * @return
-     */
-    public  UserLoginDomain getDomain(String  pMethod) {
-        UserLoginDomain domain=mDomains.get(pMethod);
-        if(mDomains.isEmpty() || domain== null){
-            switch (pMethod) {
-                case UserLoginConstant.USER_METHOD_MOBILE:
-                    domain=new MobileUserDomain();
-                    break;
-                case UserLoginConstant.USER_METHOD_WX:
-                    domain=new WxUserDomain();
-                    break;
-                case UserLoginConstant.USER_METHOD_SMSCODE:
-                    domain=new MobileUserDomain();
-                    break;
-                default:
-                    domain=new MobileUserDomain();
-                    break;
-            }
-            mDomains.put(pMethod,domain);
-        }
-        return domain;
+    @Override
+    public void putDomain(@NonNull String pMethod, @NonNull IDomain pDomain) {
+        mDomains.put(pMethod,pDomain);
+    }
+
+    @Override
+    public IDomain getDomain(@NonNull String pMethod) {
+        return mDomains.get(pMethod);
     }
 
     public  void release() {
         mDomains.clear();
+        sInstance=null;
     }
 }

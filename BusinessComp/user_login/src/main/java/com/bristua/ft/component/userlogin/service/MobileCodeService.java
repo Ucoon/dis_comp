@@ -1,16 +1,14 @@
 package com.bristua.ft.component.userlogin.service;
-
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-
 import com.bristua.framework.appconfig.AppConfig;
 import com.bristua.framework.define.IFlutterResult;
 import com.bristua.framework.rx.AndroidRxManager;
 import com.bristua.framework.system.AppContext;
 import com.bristua.ft.component.userlogin.R;
 import com.bristua.ft.component.userlogin.event.MobileEvent;
-
+import com.bristua.ft.protocol.ProtocolFactory;
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -37,7 +35,8 @@ public class MobileCodeService {
         Context context=appContext.getContext();
         String mobilePhone= MobileEvent.getInstance().getPhone();
         if(TextUtils.isEmpty(mobilePhone)){
-            pResult.error(context.getResources().getString(R.string.userlogin_error_mobile),500);
+            String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_mobile), 500, null);
+            pResult.success(null,500,errorTip);
             return;
         }
         AndroidRxManager.clear();

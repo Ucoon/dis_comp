@@ -14,6 +14,8 @@ import com.bristua.ft.component.userlogin.R;
 import com.bristua.ft.component.userlogin.event.MobileEvent;
 import com.bristua.ft.component.userlogin.repository.MobileUserInfo;
 import com.bristua.ft.component.userlogin.restapi.IMobileUserLoginApi;
+import com.bristua.ft.protocol.ProtocolFactory;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -39,30 +41,28 @@ public class MobileUserLoginService {
         String pInviteCode=MobileEvent.getInstance().getInviteCode();
         String inviteCode=TextUtils.isEmpty(pInviteCode)?"":pInviteCode;
         if(TextUtils.isEmpty(mobilePhone)){
-            pResult.error(context.getResources().getString(R.string.userlogin_error_mobile),500);
+            String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_mobile), 500, null);
+            pResult.success(null,500,errorTip);
             return;
         }
         if(TextUtils.isEmpty(phoneCode)){
-            pResult.error(context.getResources().getString(R.string.userlogin_error_validcode),500);
+            String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_validcode), 500, null);
+            pResult.success(null,500,errorTip);
             return;
         }
         //执行retrofit 下的rx模式
         Retrofit retrofit= HttpsModule.getInstance().getRetrofit();
         if(retrofit == null){
-            pResult.error(context.getResources().getString(R.string.userlogin_error_http),500);
+            String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_http), 500, null);
+            pResult.success(null,500,errorTip);
             return;
         }
-
         IMobileUserLoginApi restApi= retrofit.create(IMobileUserLoginApi.class);
-
         MobileUserInfo userInfo=new MobileUserInfo();
         userInfo.setMobilePhone(mobilePhone);
         userInfo.setPhoneCode(phoneCode);
         userInfo.setInviteCode(inviteCode);
-
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), JSON.toJSON(userInfo).toString());
-
-
         Disposable disposable=restApi.userLogin(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {

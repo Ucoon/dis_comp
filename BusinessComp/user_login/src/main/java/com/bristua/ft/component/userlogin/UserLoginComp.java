@@ -1,19 +1,24 @@
 package com.bristua.ft.component.userlogin;
 
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import com.bristua.framework.appconfig.AppConfig;
 import com.bristua.framework.define.IComponent;
-import com.bristua.framework.define.IFlutterResult;
 import com.bristua.framework.define.annotation.Router;
 import com.bristua.framework.define.router.IRouteMeta;
 import com.bristua.framework.logger.Logger;
+import com.bristua.ft.component.userlogin.domain.MobileUserDomain;
+import com.bristua.ft.component.userlogin.domain.SmsCodeDomain;
 import com.bristua.ft.component.userlogin.domain.UserLoginDomainFactory;
+import com.bristua.ft.component.userlogin.domain.WxUserDomain;
+import com.bristua.ft.component.userlogin.entity.MobileLoginEntity;
+import com.bristua.ft.component.userlogin.entity.WxLoginEntity;
 import com.bristua.ft.component.userlogin.event.MobileEvent;
-import com.bristua.ft.component.userlogin.business.IUserLoginBusiness;
-import com.bristua.ft.component.userlogin.business.UserLoginBuisinessImpl;
+import com.bristua.ft.component.userlogin.business.UserLoginBuisiness;
 import com.bristua.ft.component.userlogin.repository.UserLoginRepository;
 import com.nd.sdp.android.serviceloader.annotation.Service;
+import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_MOBILE;
+import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_SMSCODE;
+import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_WX;
 
 /**
  * 用户登录模组
@@ -29,12 +34,19 @@ public class UserLoginComp implements IComponent {
         Logger.LOGD(TAG,"init","");
         //todo richsjeson 快核对下模组创建时机吧，别乱创建业务服务层啊
         //执行一些初始化的操作,将服务层进行load
-        AppConfig.getInstance().getAppContext().registerBusinessManager(UserLoginConstant.USER_LOGIN_MODULE, new UserLoginBuisinessImpl());
+        AppConfig.getInstance().getAppContext().registerBusinessManager(UserLoginConstant.USER_LOGIN_MODULE, new UserLoginBuisiness(UserLoginConstant.USER_LOGIN_MODULE));
     }
 
     @Override
     public void load() {
-        Logger.LOGD(TAG,"load","");
+        UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_MOBILE,new MobileUserDomain());
+        UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_WX,new WxUserDomain());
+        UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_SMSCODE,new SmsCodeDomain());
+
+        UserLoginRepository.getFactory().putEntity(USER_METHOD_MOBILE,new MobileLoginEntity());
+        UserLoginRepository.getFactory().putEntity(USER_METHOD_WX,new WxLoginEntity());
+        UserLoginRepository.getFactory().putEntity(USER_METHOD_SMSCODE,new MobileLoginEntity());
+
     }
 
     @Override
@@ -47,7 +59,6 @@ public class UserLoginComp implements IComponent {
     public void destory() {
         Logger.LOGD(TAG,"destory","");
         //模组登录成功后，记得可以执行卸载了 todo richsjeson 是否忘记了卸载业务服务？？？？
-        //AppConfig.getInstance().getAppContext().unregisterBusinessManager(UserLoginConstant.USER_LOGIN_MODULE);
         MobileEvent.getInstance().release();
         UserLoginDomainFactory.getFactory().release();
         UserLoginRepository.getFactory().release();
@@ -60,19 +71,8 @@ public class UserLoginComp implements IComponent {
 
     @Override
     public void param(@NonNull IRouteMeta pMeta) {
-        Logger.LOGD(TAG,"param","");
-        IFlutterResult mResult = pMeta.getResult();
-        if (mResult == null) {
-            return;
-        }
-        //获取参数
-        String params = pMeta.getProtocol();
-        if (TextUtils.isEmpty(params)) {
-            return;
-        }
-        MobileEvent.newInstance(mResult);
-        //执行用户登录模块
-        IUserLoginBusiness userLoginBusiness= (IUserLoginBusiness) AppConfig.getInstance().getAppContext().getBusinessManager(UserLoginConstant.USER_LOGIN_MODULE);
-        userLoginBusiness.exec(params,mResult);
+        MobileEvent.newInstance(pMeta.getResult());
+        UserLoginBuisiness business= (UserLoginBuisiness) AppConfig.getInstance().getAppContext().getBusinessManager(UserLoginConstant.USER_LOGIN_MODULE);
+        business.execute(pMeta.getProtocol(),pMeta.getResult());
     }
 }
