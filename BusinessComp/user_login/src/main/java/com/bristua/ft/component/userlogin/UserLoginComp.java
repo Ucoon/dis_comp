@@ -49,15 +49,18 @@ public class UserLoginComp implements IComponent {
         ManagerFactory.getInstance().putFactory(USER_METHOD_MOBILE,new MobileLoginBusiness());
         ManagerFactory.getInstance().putFactory(USER_METHOD_SMSCODE,new MobileCodeBusiness());
         ManagerFactory.getInstance().putFactory(USER_METHOD_WX,new ActivityStartBusiness());
-//        ManagerFactory.getInstance().putFactory(WX_AWAKEN_MODULE,new WxLoginBusiness());
+        ManagerFactory.getInstance().putFactory(WX_AWAKEN_MODULE,new WxLoginBusiness());
 
 
         UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_MOBILE,new MobileUserDomain());
-        UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_WX,new WxUserDomain());
+//        UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_WX,new WxUserDomain());
         UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_SMSCODE,new SmsCodeDomain());
+        UserLoginDomainFactory.getFactory().putDomain(WX_AWAKEN_MODULE,new WxUserDomain());
 
         UserLoginRepository.getFactory().putEntity(USER_METHOD_MOBILE,new MobileLoginEntity());
-        UserLoginRepository.getFactory().putEntity(USER_METHOD_WX,new WxLoginEntity());
+//        UserLoginRepository.getFactory().putEntity(USER_METHOD_WX,new WxLoginEntity());
+        UserLoginRepository.getFactory().putEntity(WX_AWAKEN_MODULE,new WxLoginEntity());
+
         UserLoginRepository.getFactory().putEntity(USER_METHOD_SMSCODE,new MobileLoginEntity());
 
     }

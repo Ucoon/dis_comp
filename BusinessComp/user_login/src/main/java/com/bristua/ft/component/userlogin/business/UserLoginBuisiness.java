@@ -29,6 +29,7 @@ public class UserLoginBuisiness extends BaseBusiness implements IBusinessManager
         if(manager == null){
             pResult.success(null,INNER_ERROR_CODE,errorTip);
         }
-        manager.execute(pResult,new MobileLoginEntity(),data,method,mContext.getContext());
+        IEntity entity=UserLoginRepository.getFactory().getEntity(method);
+        manager.execute(pResult,entity,data,method,mContext.getContext());
     }
 }

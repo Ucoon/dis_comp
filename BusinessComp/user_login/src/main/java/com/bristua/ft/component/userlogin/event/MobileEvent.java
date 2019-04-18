@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.bristua.framework.appconfig.AppConfig;
 import com.bristua.framework.define.IFlutterResult;
 import com.bristua.ft.component.userlogin.R;
+import com.bristua.ft.protocol.ProtocolFactory;
 
 /**
  * @author richsjeson
@@ -66,20 +67,25 @@ public class MobileEvent {
      * @param pMobilePhone 手机号码
      */
     public void inputPhoneEvnet(@NonNull String pMobilePhone) {
+        Context context=AppConfig.getInstance().getAppContext().getContext();
         //如果手机号为空
         if (TextUtils.isEmpty(pMobilePhone)) {
-            mResult.error(mContext.getResources().getString(R.string.input_mobile_error_blank), 500);
+            String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.input_mobile_error_blank), 500, null);
+            mResult.success(errorTip, 500,null);
             return;
         }
+
         //校验手机号码
         if (pMobilePhone.length() > MOBILEPHONE_MAX_LENGTH || pMobilePhone.length() < MOBILEPHONE_MAX_LENGTH) {
-            mResult.error(mContext.getResources().getString(R.string.input_mobile_error_length), 500);
+            String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.input_mobile_error_length), 500, null);
+            mResult.success(errorTip, 500,null);
             return;
         }
         //正则表达式验证手机位数
         if(!isMobilePhone(pMobilePhone)){
             //手机号码不合法
-            mResult.error(mContext.getResources().getString(R.string.input_mobile_error_illegal), 500);
+            String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.input_mobile_error_illegal), 500, null);
+            mResult.success(errorTip, 500,null);
             return;
         }
         this.mPhone = pMobilePhone;

@@ -43,18 +43,20 @@ public class MobileCodeService {
         }
         AndroidRxManager.clear();
         Disposable disposable= Flowable.intervalRange(0,time,0,1,TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
                         System.out.println("倒计时"+String.valueOf(time-aLong));
                         String errorTip = ProtocolFactory.convertToJson(null, 200, String.valueOf(time-aLong));
-                        //pResult.success(errorTip, 200, "");
+                        pResult.success(errorTip, 200, "");
                     }
                 }).doOnComplete(new Action() {
                     @Override
                     public void run() throws Exception {
                         String errorTip = ProtocolFactory.convertToJson(null, 200, String.valueOf(time));
-                        //pResult.success(errorTip, 200, "");
+                        pResult.success(errorTip, 200, "");
                     }
                 }).subscribe();
 

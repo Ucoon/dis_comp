@@ -1,19 +1,18 @@
 package com.bristua.ft.component.userlogin.entity;
-
-import com.bristua.ft.component.userlogin.repository.WxUserInfo;
 import com.nd.adhoc.framework.entity.IEntity;
 
-public class WxLoginEntity implements IEntity<WxUserInfo> {
+public class WxLoginEntity implements IEntity<String> {
 
-    private WxUserInfo wxUserInfo;
+    private String code;
+
 
     @Override
-    public void setObjectValue(WxUserInfo wxUserInfo) {
-        this.wxUserInfo=wxUserInfo;
+    public void setObjectValue(String pValue) {
+        this.code=pValue;
     }
 
     @Override
-    public WxUserInfo getObjectValue() {
-        return this.wxUserInfo;
+    public String getObjectValue() {
+        return this.code;
     }
 }

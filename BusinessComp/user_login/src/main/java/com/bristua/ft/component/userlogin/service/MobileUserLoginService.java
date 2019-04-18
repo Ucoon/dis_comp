@@ -42,19 +42,19 @@ public class MobileUserLoginService {
         String inviteCode=TextUtils.isEmpty(pInviteCode)?"":pInviteCode;
         if(TextUtils.isEmpty(mobilePhone)){
             String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_mobile), 500, null);
-            pResult.success(null,500,errorTip);
+            pResult.success(errorTip,500,null);
             return;
         }
         if(TextUtils.isEmpty(phoneCode)){
             String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_validcode), 500, null);
-            pResult.success(null,500,errorTip);
+            pResult.success(errorTip,500,null);
             return;
         }
         //执行retrofit 下的rx模式
         Retrofit retrofit= HttpsModule.getInstance().getRetrofit();
         if(retrofit == null){
             String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_http), 500, null);
-            pResult.success(null,500,errorTip);
+            pResult.success(errorTip,500,null);
             return;
         }
         IMobileUserLoginApi restApi= retrofit.create(IMobileUserLoginApi.class);
