@@ -11,10 +11,12 @@ import com.bristua.ft.component.userlogin.event.MobileEvent;
 import com.bristua.ft.protocol.ProtocolFactory;
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author richsjeson
@@ -36,22 +38,23 @@ public class MobileCodeService {
         String mobilePhone= MobileEvent.getInstance().getPhone();
         if(TextUtils.isEmpty(mobilePhone)){
             String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_mobile), 500, null);
-            pResult.success(null,500,errorTip);
+            pResult.success(errorTip,500,errorTip);
             return;
         }
         AndroidRxManager.clear();
         Disposable disposable= Flowable.intervalRange(0,time,0,1,TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        pResult.success(String.valueOf(time-aLong), 200, "");
+                        System.out.println("倒计时"+String.valueOf(time-aLong));
+                        String errorTip = ProtocolFactory.convertToJson(null, 200, String.valueOf(time-aLong));
+                        //pResult.success(errorTip, 200, "");
                     }
                 }).doOnComplete(new Action() {
                     @Override
                     public void run() throws Exception {
-                        pResult.success(String.valueOf(time), 200, "");
-                        AndroidRxManager.clear();
+                        String errorTip = ProtocolFactory.convertToJson(null, 200, String.valueOf(time));
+                        //pResult.success(errorTip, 200, "");
                     }
                 }).subscribe();
 

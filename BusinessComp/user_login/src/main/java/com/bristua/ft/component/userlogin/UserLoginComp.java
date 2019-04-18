@@ -6,6 +6,10 @@ import com.bristua.framework.define.IComponent;
 import com.bristua.framework.define.annotation.Router;
 import com.bristua.framework.define.router.IRouteMeta;
 import com.bristua.framework.logger.Logger;
+import com.bristua.ft.component.userlogin.business.ActivityStartBusiness;
+import com.bristua.ft.component.userlogin.business.MobileCodeBusiness;
+import com.bristua.ft.component.userlogin.business.MobileLoginBusiness;
+import com.bristua.ft.component.userlogin.business.WxLoginBusiness;
 import com.bristua.ft.component.userlogin.domain.MobileUserDomain;
 import com.bristua.ft.component.userlogin.domain.SmsCodeDomain;
 import com.bristua.ft.component.userlogin.domain.UserLoginDomainFactory;
@@ -15,10 +19,12 @@ import com.bristua.ft.component.userlogin.entity.WxLoginEntity;
 import com.bristua.ft.component.userlogin.event.MobileEvent;
 import com.bristua.ft.component.userlogin.business.UserLoginBuisiness;
 import com.bristua.ft.component.userlogin.repository.UserLoginRepository;
+import com.nd.adhoc.framework.business.ManagerFactory;
 import com.nd.sdp.android.serviceloader.annotation.Service;
 import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_MOBILE;
 import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_SMSCODE;
 import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_WX;
+import static com.bristua.ft.component.userlogin.UserLoginConstant.WX_AWAKEN_MODULE;
 
 /**
  * 用户登录模组
@@ -39,6 +45,13 @@ public class UserLoginComp implements IComponent {
 
     @Override
     public void load() {
+
+        ManagerFactory.getInstance().putFactory(USER_METHOD_MOBILE,new MobileLoginBusiness());
+        ManagerFactory.getInstance().putFactory(USER_METHOD_SMSCODE,new MobileCodeBusiness());
+        ManagerFactory.getInstance().putFactory(USER_METHOD_WX,new ActivityStartBusiness());
+//        ManagerFactory.getInstance().putFactory(WX_AWAKEN_MODULE,new WxLoginBusiness());
+
+
         UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_MOBILE,new MobileUserDomain());
         UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_WX,new WxUserDomain());
         UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_SMSCODE,new SmsCodeDomain());
