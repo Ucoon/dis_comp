@@ -19,6 +19,7 @@ import com.bristua.ft.protocol.ProtocolFactory;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 
@@ -64,6 +65,7 @@ public class MobileUserLoginService {
         userInfo.setInviteCode(inviteCode);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), JSON.toJSON(userInfo).toString());
         Disposable disposable=restApi.userLogin(body)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
                     @Override
