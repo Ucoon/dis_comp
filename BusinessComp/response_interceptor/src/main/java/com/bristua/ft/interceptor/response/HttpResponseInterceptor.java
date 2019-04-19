@@ -2,6 +2,7 @@ package com.bristua.ft.interceptor.response;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bristua.framework.logger.Logger;
 import com.bristua.ft.interceptor.response.exception.BristuaApiException;
@@ -25,6 +26,8 @@ public class HttpResponseInterceptor implements Interceptor {
 
     private final String TOKEN = "token";
 
+    private final int INTERCEPT_SUCCESS = 0;
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
@@ -42,7 +45,7 @@ public class HttpResponseInterceptor implements Interceptor {
         }
         HttpResult httpResult = JSONObject.parseObject(result, HttpResult.class);
         //检测当前是否符合200
-        if (httpResult.getCode() != HttpStatus.STATUS_CODE_SUCCESS) {
+        if (httpResult.getCode() != INTERCEPT_SUCCESS) {
             //此处需要进行统一异常拦截
             throw new BristuaApiException(httpResult.getMsg(), httpResult.getCode());
         }
@@ -53,25 +56,25 @@ public class HttpResponseInterceptor implements Interceptor {
             throw new BristuaApiException("this data is not exists", HttpStatus.STATUS_EXEC_ERROR);
         }
         //拦截带token的数据包体，取出token后，放入header中
-        if (httpResult.getData() instanceof AccessTokenData) {
-            AccessTokenData data = (AccessTokenData) httpResult.getData();
-            if (!TextUtils.isEmpty(data.getToken())) {
-                //对header进行设置
-                request.newBuilder()
-                        .addHeader(TOKEN, data.getToken())
-                        .build();
-                return chain.proceed(request);
-            }
-            return response;
+
+        String data = JSON.toJSONString(httpResult.getData());
+        AccessTokenData accessTokenData = JSONObject.parseObject(data, AccessTokenData.class);
+
+        if (!TextUtils.isEmpty(accessTokenData.getToken())) {
+            //对header进行设置
+            request.newBuilder()
+                    .addHeader(TOKEN, accessTokenData.getToken())
+                    .build();
+            return chain.proceed(request);
         }
+
         //制造数据报文只返回data数据源
-        String data = (String) httpResult.getData();
+        String resultData = (String) httpResult.getData();
         response = new Response.Builder()
                 .code(HttpStatus.STATUS_CODE_SUCCESS)
                 .addHeader("Content-Type", "application/json")
-                .body(ResponseBody.create(MediaType.parse("application/json"), data))
+                .body(ResponseBody.create(MediaType.parse("application/json"), resultData))
                 .build();
-
         return response;
     }
 }
