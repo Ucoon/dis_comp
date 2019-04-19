@@ -70,14 +70,18 @@ public class MobileUserLoginService {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
                     @Override
-                    public void accept(String pResult) {
-
+                    public void accept(String result) {
                         AndroidRxManager.clear();
+                        pResult.success(result,200,null);
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable){
                         AndroidRxManager.clear();
+                        String errorTip = ProtocolFactory.convertToJson(throwable.getLocalizedMessage(), 500, null);
+                        pResult.success(errorTip,500,null);
+
                     }
                 });
         AndroidRxManager.addDisposable(disposable);
