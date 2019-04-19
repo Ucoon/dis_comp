@@ -12,6 +12,7 @@ import com.bristua.framework.rx.AndroidRxManager;
 import com.bristua.framework.system.AppContext;
 import com.bristua.ft.component.userlogin.R;
 import com.bristua.ft.component.userlogin.event.MobileEvent;
+import com.bristua.ft.component.userlogin.param.MobileParam;
 import com.bristua.ft.component.userlogin.repository.MobileUserInfo;
 import com.bristua.ft.component.userlogin.restapi.IMobileUserLoginApi;
 import com.bristua.ft.protocol.ProtocolFactory;
@@ -59,8 +60,8 @@ public class MobileUserLoginService {
             return;
         }
         IMobileUserLoginApi restApi= retrofit.create(IMobileUserLoginApi.class);
-        MobileUserInfo userInfo=new MobileUserInfo();
-        userInfo.setMobilePhone(mobilePhone);
+        MobileParam userInfo=new MobileParam();
+        userInfo.setPhone(mobilePhone);
         userInfo.setPhoneCode(phoneCode);
         userInfo.setInviteCode(inviteCode);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), JSON.toJSON(userInfo).toString());
@@ -70,6 +71,7 @@ public class MobileUserLoginService {
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String pResult) {
+
                         AndroidRxManager.clear();
                     }
                 }, new Consumer<Throwable>() {

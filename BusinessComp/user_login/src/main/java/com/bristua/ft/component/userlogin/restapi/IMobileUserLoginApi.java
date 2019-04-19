@@ -16,7 +16,7 @@ public interface IMobileUserLoginApi {
      * 用户登录
      * @return
      */
-    @POST("/api/user/login")
+    @POST("mall/api/user/login")
     @Headers("Content-Type:application/json")
     Observable<String> userLogin(@Body RequestBody params);
 }
