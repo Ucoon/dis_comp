@@ -10,7 +10,11 @@ import com.bristua.framework.define.router.IRouteMeta;
 import com.bristua.framework.logger.Logger;
 import com.bristua.ft.component.userpay.business.UserPayBuisiness;
 import com.bristua.ft.component.userpay.business.WXPayBusiness;
+import com.bristua.ft.component.userpay.domain.UserPayDomainFactory;
+import com.bristua.ft.component.userpay.domain.WXPayDomain;
+import com.bristua.ft.component.userpay.entity.WXPayEntity;
 import com.bristua.ft.component.userpay.event.MobileEvent;
+import com.bristua.ft.component.userpay.repository.UserPayRepository;
 import com.nd.adhoc.framework.business.ManagerFactory;
 import com.nd.sdp.android.serviceloader.annotation.Service;
 
@@ -35,6 +39,8 @@ public class UserPayComp implements IComponent {
     @Override
     public void load() {
         ManagerFactory.getInstance().putFactory(UserPayConstant.USER_WX_PAY, new WXPayBusiness());
+        UserPayDomainFactory.getFactory().putDomain(UserPayConstant.USER_WX_PAY, new WXPayDomain());
+        UserPayRepository.getFactory().putEntity(UserPayConstant.USER_WX_PAY, new WXPayEntity());
     }
 
     @Override
@@ -47,6 +53,8 @@ public class UserPayComp implements IComponent {
     public void destory() {
         Logger.LOGD(TAG, "destory", "");
         MobileEvent.getInstance().release();
+        UserPayDomainFactory.getFactory().release();
+        UserPayRepository.getFactory().release();
     }
 
     @Override
