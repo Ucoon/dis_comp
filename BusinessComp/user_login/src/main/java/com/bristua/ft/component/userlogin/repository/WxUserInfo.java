@@ -1,13 +1,12 @@
 package com.bristua.ft.component.userlogin.repository;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 /**
  * @author richsjeson
  * 用户扩展类
  */
-public class WxUserInfo implements  IUserInfo{
+public class WxUserInfo {
 
     public void setAppId(@NonNull String pAppId){
 

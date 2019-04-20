@@ -8,7 +8,7 @@ import com.bristua.ft.component.userlogin.event.MobileEvent;
  * @author richsjeson
  * 用户属性
  */
-public class MobileUserInfo implements IUserInfo {
+public class MobileUserInfo {
 
     /**
      * 设置手机号
