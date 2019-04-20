@@ -16,7 +16,7 @@ public interface IWxLoginApi {
      * 用户登录
      * @return
      */
-    @POST("/wx/app/login/{code}")
+    @POST("/mall/wx/app/login/{code}")
     @Headers("Content-Type:application/json")
     Observable<String> wxLogin(@Path("code") String pCode);
 }
