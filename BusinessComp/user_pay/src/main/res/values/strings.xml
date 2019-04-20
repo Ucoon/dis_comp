@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">user_pay</string>
+    <string name="userpay_error_http">用户支付失败，通讯模组没有初始化</string>
+    <string name="userpay_failure_parser">用户在支付模块中，数据解析失败，请检查传入的参数是否符合json合法参数</string>
+</resources>
