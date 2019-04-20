@@ -49,7 +49,7 @@ public class WXPayService {
                     @Override
                     public void accept(String result) {
                         AndroidRxManager.clear();
-                        pResult.success(errorTip, 200, result);
+                        pResult.success(result, 200, null);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
