@@ -39,9 +39,7 @@ public class HttpResponseInterceptor implements Interceptor {
                     .addHeader(TOKEN,token)
                     .addHeader("Content-Type", "application/json")
                     .build();
-            return chain.proceed(request);
         }
-
 
         Response response = chain.proceed(request);
 
