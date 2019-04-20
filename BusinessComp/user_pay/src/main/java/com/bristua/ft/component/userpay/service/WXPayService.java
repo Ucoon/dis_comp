@@ -1,6 +1,7 @@
 package com.bristua.ft.component.userpay.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSON;
@@ -10,6 +11,7 @@ import com.bristua.framework.https.HttpsModule;
 import com.bristua.framework.rx.AndroidRxManager;
 import com.bristua.framework.system.AppContext;
 import com.bristua.ft.component.userpay.R;
+import com.bristua.ft.component.userpay.UserPayConstant;
 import com.bristua.ft.component.userpay.restapi.IWxPayApi;
 import com.bristua.ft.component.userpay.wrapper.WXPayWrapper;
 import com.bristua.ft.protocol.ProtocolFactory;
@@ -49,7 +51,15 @@ public class WXPayService {
                     @Override
                     public void accept(String result) {
                         AndroidRxManager.clear();
-                        pResult.success(result, 200, null);
+                        Context context = AppConfig.getInstance().getAppContext().getContext();
+                        //此处 不要问我为什么就是为了startActivity的
+                        Intent intent = new Intent();
+                        intent.setClassName(context.getPackageName(), "com.bristua.flutter.ftshop.WXAwakenActivity");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(UserPayConstant.USER_WX_PAY_CODE, 200);
+                        intent.putExtra(UserPayConstant.USER_WX_PAY_RESULT, result);
+                        intent.putExtra(UserPayConstant.USER_IS_WX_PAY, true);
+                        context.startActivity(intent);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
