@@ -17,7 +17,7 @@ public interface IWxPayApi {
      *
      * @return
      */
-    @POST("/api/wx/app/pay")
+    @POST("/mall/api/wx/app/pay")
     @Headers("Content-Type:application/json")
     Observable<String> wxPay(@Body RequestBody requestBody);
 }
