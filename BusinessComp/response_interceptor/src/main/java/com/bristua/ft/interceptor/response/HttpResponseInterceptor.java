@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bristua.framework.logger.Logger;
 import com.bristua.ft.interceptor.response.exception.BristuaApiException;
+import com.bristua.ft.interceptor.response.manager.TokenManager;
 import com.bristua.ft.interceptor.response.wrapper.AccessTokenData;
 
 import java.io.IOException;
@@ -30,9 +31,20 @@ public class HttpResponseInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+        String token= TokenManager.getToken();
         Request request = chain.request();
-        Response response = null;
-        response = chain.proceed(request);
+
+        if(!TextUtils.isEmpty(token)){
+            request=request.newBuilder()
+                    .addHeader(TOKEN,token)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            return chain.proceed(request);
+        }
+
+
+        Response response = chain.proceed(request);
+
         //拦截到了response
         if (response.code() != HttpStatus.STATUS_CODE_SUCCESS) {
             return response;
@@ -61,11 +73,8 @@ public class HttpResponseInterceptor implements Interceptor {
         AccessTokenData accessTokenData = JSONObject.parseObject(data, AccessTokenData.class);
 
         if (!TextUtils.isEmpty(accessTokenData.getToken())) {
-            //对header进行设置
-            request.newBuilder()
-                    .addHeader(TOKEN, accessTokenData.getToken())
-                    .build();
-            return chain.proceed(request);
+            TokenManager.saveToken(accessTokenData.getToken());
+            return response;
         }
 
         //制造数据报文只返回data数据源

@@ -17,4 +17,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.0.2'
     implementation 'com.bristua.framework:logger:1.0.4-SNAPHOST'
     implementation 'com.alibaba:fastjson:1.2.31'
+    //系统全局配置模块
+    implementation 'com.bristua.framework:appconfig:2.0.0-SNAPHOST'
 }
