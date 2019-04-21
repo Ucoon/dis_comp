@@ -7,7 +7,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.bristua.framework.define.IFlutterResult;
 import com.bristua.ft.comp.address.domain.DomainFactory;
 import com.bristua.ft.comp.address.wrapper.AddressWrapper;
-import com.bristua.ft.comp.address.wrapper.FindAddressWrapper;
 import com.nd.adhoc.framework.business.IManager;
 import com.nd.adhoc.framework.domain.IDomain;
 import com.nd.adhoc.framework.entity.IEntity;
@@ -17,12 +16,11 @@ import com.nd.adhoc.framework.entity.IEntity;
  * 新增地址业务
  * @author richsjeson
  */
-public class FindBusiness implements IManager {
+public class UpdateBusiness implements IManager {
 
     @Override
-    public void execute(@NonNull IFlutterResult pResult, @NonNull IEntity pEntity, @NonNull String pData, @NonNull String pMethod, @NonNull Context context){
-
-        FindAddressWrapper address= JSONObject.parseObject(pData,FindAddressWrapper.class);
+    public void execute(@NonNull IFlutterResult pResult, @NonNull IEntity pEntity, @NonNull String pData, @NonNull String pMethod, @NonNull Context context) {
+        AddressWrapper address= JSONObject.parseObject(pData,AddressWrapper.class);
         //此处需要验证address地址的参数是否完整
         if(address == null){
             return;

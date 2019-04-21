@@ -8,7 +8,7 @@ import com.nd.adhoc.framework.entity.IEntity;
  * @author richsjeson
  * 删除地址
  */
-public class AddressDeleteDomain implements IDomain {
+public class DeleteDomain implements IDomain {
 
     @Override
     public void execute(@NonNull IEntity pEntity, @NonNull IFlutterResult pResult) {

@@ -21,4 +21,9 @@ public class AddressConstant{
      * 查找列表数据
      */
     public final static String METHOD_FOUND="find";
+
+    /**
+     * 修改地址数据
+     */
+    public final static String METHOD_UPDATE="update";
 }

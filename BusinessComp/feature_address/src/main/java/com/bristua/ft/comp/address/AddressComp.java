@@ -11,11 +11,15 @@ import com.bristua.ft.comp.address.business.AddBusiness;
 import com.bristua.ft.comp.address.business.AddressBusiness;
 import com.bristua.ft.comp.address.business.DelBusiness;
 import com.bristua.ft.comp.address.business.FindBusiness;
+import com.bristua.ft.comp.address.business.UpdateBusiness;
 import com.bristua.ft.comp.address.domain.AddressAddDomain;
-import com.bristua.ft.comp.address.domain.AddressDeleteDomain;
+import com.bristua.ft.comp.address.domain.AddressUpdateDomain;
+import com.bristua.ft.comp.address.domain.DeleteDomain;
 import com.bristua.ft.comp.address.domain.DomainFactory;
 import com.bristua.ft.comp.address.domain.FindAddressDomain;
 import com.bristua.ft.comp.address.entity.AddressEntity;
+import com.bristua.ft.comp.address.entity.FindAddressEntity;
+import com.bristua.ft.comp.address.entity.UpDateAddressEntity;
 import com.bristua.ft.comp.address.repository.AddressRepository;
 import com.nd.adhoc.framework.BaseComponent;
 import com.nd.adhoc.framework.business.ManagerFactory;
@@ -31,14 +35,20 @@ public class AddressComp extends BaseComponent {
 
     @Override
     public void load() {
-        AddressRepository.getInstance().putEntity(AddressConstant.MODULE,new AddressEntity());
+
         ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_ADD,new AddBusiness());
-        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_DEL,new DelBusiness());
+//        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_DEL,new DelBusiness());
         ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_FOUND,new FindBusiness());
+        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_UPDATE,new UpdateBusiness());
 
         DomainFactory.getInstance().putDomain(AddressConstant.METHOD_ADD,new AddressAddDomain());
-        DomainFactory.getInstance().putDomain(AddressConstant.METHOD_DEL,new AddressDeleteDomain());
+//        DomainFactory.getInstance().putDomain(AddressConstant.METHOD_DEL,new DeleteDomain());
         DomainFactory.getInstance().putDomain(AddressConstant.METHOD_FOUND,new FindAddressDomain());
+        DomainFactory.getInstance().putDomain(AddressConstant.METHOD_UPDATE,new AddressUpdateDomain());
+
+        AddressRepository.getInstance().putEntity(AddressConstant.METHOD_ADD,new AddressEntity());
+        AddressRepository.getInstance().putEntity(AddressConstant.METHOD_FOUND,new FindAddressEntity());
+        AddressRepository.getInstance().putEntity(AddressConstant.METHOD_UPDATE,new UpDateAddressEntity());
     }
 
     @Override

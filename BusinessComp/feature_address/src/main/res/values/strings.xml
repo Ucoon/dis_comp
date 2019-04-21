@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">feature_address</string>
+    <string name="address_error_http">地址模组调用失败,HTTPS模组未初始化</string>
 </resources>

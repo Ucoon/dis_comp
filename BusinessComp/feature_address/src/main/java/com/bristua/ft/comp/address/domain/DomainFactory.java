@@ -17,6 +17,10 @@ public class DomainFactory implements IDomainFactory {
 
     private HashMap<String,IDomain> mDomainHashMap=new HashMap<>();
 
+    private DomainFactory(){
+
+    }
+
     public static DomainFactory getInstance(){
 
         if(mInstance == null){
