@@ -55,7 +55,8 @@ public class HttpResponseInterceptor implements Interceptor {
         }
         HttpResult httpResult = JSONObject.parseObject(result, HttpResult.class);
         //检测当前是否符合200
-        if (httpResult.getCode() != INTERCEPT_SUCCESS) {
+        if ((httpResult.getCode() != INTERCEPT_SUCCESS)
+                || (httpResult.getCode() != HttpStatus.STATUS_CODE_SUCCESS)) {
             //此处需要进行统一异常拦截
             throw new BristuaApiException(httpResult.getMsg(), httpResult.getCode());
         }
