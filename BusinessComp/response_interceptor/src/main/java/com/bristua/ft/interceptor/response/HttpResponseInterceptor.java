@@ -73,13 +73,23 @@ public class HttpResponseInterceptor implements Interceptor {
             }
 
             //制造数据报文只返回data数据源
-            String resultData = (String) httpResult.getData();
+            String resultData = null;
+
+            if(httpResult.getData() instanceof String){
+                resultData=(String) httpResult.getData();
+            }else{
+                resultData=JSON.toJSONString(httpResult.getData());
+            }
             response = new Response.Builder()
+                    .request(request)
+                    .protocol(Protocol.HTTP_1_1)
                     .code(HttpStatus.STATUS_CODE_SUCCESS)
                     .addHeader("Content-Type", "application/json")
+                    .message("")
                     .body(ResponseBody.create(MediaType.parse("application/json"), resultData))
                     .build();
             return response;
+
         }
         //此处需要进行统一异常拦截
         throw new BristuaApiException(httpResult.getMsg(), httpResult.getCode());
