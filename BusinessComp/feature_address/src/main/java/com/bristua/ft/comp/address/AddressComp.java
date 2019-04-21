@@ -28,18 +28,23 @@ import com.nd.sdp.android.serviceloader.annotation.Service;
 @Service(IComponent.class)
 @Router(AddressConstant.MODULE)
 public class AddressComp extends BaseComponent {
+
+    private ManagerFactory mFactory;
+
     @Override
     public void init() {
         AppConfig.getInstance().getAppContext().registerBusinessManager(AddressConstant.MODULE,  new AddressBusiness(AddressConstant.MODULE));
+        mFactory=new ManagerFactory();
+
     }
 
     @Override
     public void load() {
 
-        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_ADD,new AddBusiness());
+        mFactory.putFactory(AddressConstant.METHOD_ADD,new AddBusiness());
 //        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_DEL,new DelBusiness());
-        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_FOUND,new FindBusiness());
-        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_UPDATE,new UpdateBusiness());
+        mFactory.putFactory(AddressConstant.METHOD_FOUND,new FindBusiness());
+        mFactory.putFactory(AddressConstant.METHOD_UPDATE,new UpdateBusiness());
 
         DomainFactory.getInstance().putDomain(AddressConstant.METHOD_ADD,new AddressAddDomain());
 //        DomainFactory.getInstance().putDomain(AddressConstant.METHOD_DEL,new DeleteDomain());

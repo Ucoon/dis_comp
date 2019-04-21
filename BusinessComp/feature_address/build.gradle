@@ -41,5 +41,5 @@ dependencies {
     implementation 'com.bristua.framework:common_api:2.0.0-SNAPHOST'
     implementation 'com.bristua.framework:https:2.0.0-SNAPHOST'
     implementation 'com.bristua.framework:logger:1.0.4-SNAPHOST'
-    implementation 'com.bristua.framework:domain:1.0.0-SNAPHOST'
+    implementation 'com.bristua.framework:domain:1.0.4-SNAPHOST'
 }
