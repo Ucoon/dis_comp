@@ -1,7 +1,20 @@
 package com.ft.bristua.component.order;
 
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
+import com.bristua.framework.appconfig.AppConfig;
 import com.bristua.framework.define.IComponent;
+import com.bristua.framework.define.IFlutterResult;
+import com.bristua.framework.define.annotation.Router;
+import com.bristua.framework.define.router.IRouteMeta;
+import com.ft.bristua.component.order.business.OrderBusiness;
+import com.ft.bristua.component.order.business.OrderDetailBusiness;
+import com.ft.bristua.component.order.business.OrderSubmitBusiness;
+import com.ft.bristua.component.order.entity.OrderSubmitEntity;
+import com.ft.bristua.component.order.repository.OrderRepository;
 import com.nd.adhoc.framework.BaseComponent;
+import com.nd.adhoc.framework.business.ManagerFactory;
 import com.nd.sdp.android.serviceloader.annotation.Service;
 
 /**
@@ -9,8 +22,43 @@ import com.nd.sdp.android.serviceloader.annotation.Service;
  * @author richsjeson
  */
 @Service(IComponent.class)
+@Router(OrderConstants.ORDER_MODULE)
 public class OrderComponent extends BaseComponent implements IComponent {
 
+    @Override
+    public void init() {
 
+        AppConfig.getInstance().getAppContext().registerBusinessManager(OrderConstants.ORDER_MODULE,new OrderBusiness(OrderConstants.ORDER_MODULE));
+    }
+
+    @Override
+    public void load() {
+        ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitBusiness());
+        ManagerFactory.getInstance().putFactory(OrderConstants.METGOD_ORDER_DETAIL,new OrderDetailBusiness());
+        //添加实体域--订单提交
+        OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitEntity());
+    }
+
+    @Override
+    public void unload() {
+
+    }
+
+    @Override
+    public void destory() {
+
+    }
+
+    @Override
+    public void dispatch(@Nullable Object pEvent) {
+
+    }
+
+    @Override
+    public void param(@Nullable IRouteMeta pMeta) {
+
+        OrderBusiness business= (OrderBusiness) AppConfig.getInstance().getAppContext().getBusinessManager(OrderConstants.ORDER_MODULE);
+        business.execute(pMeta.getProtocol(),pMeta.getResult());
+    }
 
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">order</string>
+    <string name="order_error_http">订单模组初始化失败，HTTPS模组初始化错误</string>
 </resources>
