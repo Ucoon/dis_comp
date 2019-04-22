@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply from:'http://www.bristua.com/uploadArchives.gradle'
 
 android {
     compileSdkVersion 28
