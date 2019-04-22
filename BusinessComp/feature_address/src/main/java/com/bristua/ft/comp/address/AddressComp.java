@@ -41,10 +41,10 @@ public class AddressComp extends BaseComponent {
     @Override
     public void load() {
 
-        mFactory.putFactory(AddressConstant.METHOD_ADD,new AddBusiness());
+        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_ADD,new AddBusiness());
 //        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_DEL,new DelBusiness());
-        mFactory.putFactory(AddressConstant.METHOD_FOUND,new FindBusiness());
-        mFactory.putFactory(AddressConstant.METHOD_UPDATE,new UpdateBusiness());
+        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_FOUND,new FindBusiness());
+        ManagerFactory.getInstance().putFactory(AddressConstant.METHOD_UPDATE,new UpdateBusiness());
 
         DomainFactory.getInstance().putDomain(AddressConstant.METHOD_ADD,new AddressAddDomain());
 //        DomainFactory.getInstance().putDomain(AddressConstant.METHOD_DEL,new DeleteDomain());

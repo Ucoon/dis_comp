@@ -12,18 +12,18 @@ public class AddressConstant{
     /**
      * 地址添加
      */
-    public final static String METHOD_ADD="add";
+    public final static String METHOD_ADD="address_add";
     /**
      * 删除地址
      */
-    public final static String METHOD_DEL="del";
+    public final static String METHOD_DEL="address_del";
     /**
      * 查找列表数据
      */
-    public final static String METHOD_FOUND="find";
+    public final static String METHOD_FOUND="address_find";
 
     /**
      * 修改地址数据
      */
-    public final static String METHOD_UPDATE="update";
+    public final static String METHOD_UPDATE="address_update";
 }
