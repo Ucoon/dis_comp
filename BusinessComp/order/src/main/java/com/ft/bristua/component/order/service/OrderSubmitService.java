@@ -24,7 +24,7 @@ import retrofit2.Retrofit;
 /**
  * 订单服务
  */
-public class OrderService {
+public class OrderSubmitService {
 
     public  static void submit(@NonNull OrderSubmitWrapper pWrapper, @NonNull final IFlutterResult pResult){
         AndroidRxManager.clear();
