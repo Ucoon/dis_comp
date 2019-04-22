@@ -12,9 +12,12 @@ import com.bristua.framework.rx.AndroidRxManager;
 import com.bristua.framework.system.AppContext;
 import com.bristua.ft.comp.address.R;
 import com.bristua.ft.comp.address.restapi.IAddressApi;
+import com.bristua.ft.comp.address.wrapper.FindAddressResult;
 import com.bristua.ft.comp.address.wrapper.UpAddressWrapper;
 import com.bristua.ft.protocol.ProtocolFactory;
+
 import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -57,12 +60,12 @@ public class FindAddressService {
                         if (TextUtils.isEmpty(result)) {
                             flutterResult = ProtocolFactory.convertToJson("", 200, null);
                         } else {
-                            List<UpAddressWrapper> wrappers = JSON.parseArray(result, UpAddressWrapper.class);
-                            if (wrappers == null) {
+                            FindAddressResult findAddressResult = JSON.parseObject(result, FindAddressResult.class);
+                            if (findAddressResult == null) {
                                 String errorTip = ProtocolFactory.convertToJson("", 500, null);
                                 pResult.success(errorTip, 500, null);
                             } else {
-                                flutterResult = ProtocolFactory.convertToJson("", 200, wrappers);
+                                flutterResult = ProtocolFactory.convertToJson("", 200, findAddressResult);
                             }
                         }
                         pResult.success(flutterResult, 200, null);
