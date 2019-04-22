@@ -12,11 +12,11 @@ public class OrderConstants {
     /**
      * 订单的提交
      */
-    public final static String METHOD_ORDER_SUBMIT="submit";
+    public final static String METHOD_ORDER_SUBMIT="order_submit";
     /**
      * 订单详情
      */
-    public final static String METGOD_ORDER_DETAIL="detail";
+    public final static String METGOD_ORDER_DETAIL="order_detail";
 
 //    /**
 //     * 切换订单状态(移到订单列表组件中去维护)

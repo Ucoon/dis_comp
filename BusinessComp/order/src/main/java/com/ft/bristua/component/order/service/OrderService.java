@@ -46,7 +46,12 @@ public class OrderService {
                     @Override
                     public void accept(String result) {
                         AndroidRxManager.clear();
-                        pResult.success(result,200,null);
+                        String flutterResult="";
+                        if(TextUtils.isEmpty(result)){
+                            flutterResult = ProtocolFactory.convertToJson("", 200, null);
+                        }
+                        //todo zyb 尝试看下情况是否靠谱
+                        pResult.success(flutterResult,200,null);
 
                     }
                 }, new Consumer<Throwable>() {
