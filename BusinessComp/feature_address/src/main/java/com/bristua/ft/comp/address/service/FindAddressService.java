@@ -54,7 +54,7 @@ public class FindAddressService {
                     public void accept(String result) {
                         AndroidRxManager.clear();
                         String flutterResult = "";
-                        if (TextUtils.isEmpty("")) {
+                        if (TextUtils.isEmpty(result)) {
                             flutterResult = ProtocolFactory.convertToJson("", 200, null);
                         } else {
                             List<UpAddressWrapper> wrappers = JSON.parseArray(result, UpAddressWrapper.class);
