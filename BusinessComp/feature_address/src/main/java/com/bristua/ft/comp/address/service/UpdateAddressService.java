@@ -52,7 +52,8 @@ public class UpdateAddressService {
                     @Override
                     public void accept(String result) {
                         AndroidRxManager.clear();
-                        pResult.success(result,200,null);
+                        String flutterResult=ProtocolFactory.convertToJson("保存成功",200,null);
+                        pResult.success(flutterResult,200,null);
 
                     }
                 }, new Consumer<Throwable>() {

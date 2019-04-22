@@ -55,7 +55,8 @@ public class AddAddressService {
                     @Override
                     public void accept(String result) {
                         AndroidRxManager.clear();
-                        pResult.success(!TextUtils.isEmpty(result) ? result : "{\"code\":200,\"msg\":\"保存成功\",\"data\":\"\"}", 200, null);
+                        String flutterResult=ProtocolFactory.convertToJson("保存成功",200,null);
+                        pResult.success(flutterResult,200,null);
 
                     }
                 }, new Consumer<Throwable>() {
