@@ -1,10 +1,12 @@
 package com.bristua.ft.comp.address.wrapper;
 
+import java.io.Serializable;
+
 /**
  * @author richsjeson
  * 地址入参
  */
-public class AddressWrapper {
+public class AddressWrapper implements Serializable {
     /**
      * 手机号
      */
