@@ -26,7 +26,4 @@ public class RebateBusiness extends BaseBusiness implements IBusinessManager {
         }
         manager.execute(pResult,null,data,method,mContext.getContext());
     }
-
-
-
 }

@@ -10,5 +10,10 @@ public class RebateConstants {
     /**
      * 获取返现统计列表
      */
-    public final static String METHOD_REBATE_FINDALL="find";
+    public final static String METHOD_REBATE_FINDALL="rebate_findIntegral";
+
+    /**
+     * 获取当前用户的消费详情记录
+     */
+    public final static String METHOD_REBATE_USERCONSUME="rebate_consume";
 }

@@ -6,10 +6,15 @@ import com.bristua.framework.appconfig.AppConfig;
 import com.bristua.framework.define.IComponent;
 import com.bristua.framework.define.annotation.Router;
 import com.bristua.framework.define.router.IRouteMeta;
+import com.bristua.ft.comp.rebate.business.FindRebateBusiness;
 import com.bristua.ft.comp.rebate.business.RebateBusiness;
+import com.bristua.ft.comp.rebate.business.UserConsumeBusiness;
 import com.bristua.ft.comp.rebate.domain.DomainFactory;
 import com.bristua.ft.comp.rebate.domain.FindRebatesDomain;
+import com.bristua.ft.comp.rebate.domain.UserConsumeDomain;
+import com.bristua.ft.comp.rebate.entity.RebateEntity;
 import com.bristua.ft.comp.rebate.repository.RebateRepository;
+import com.nd.adhoc.framework.business.ManagerFactory;
 import com.nd.sdp.android.serviceloader.annotation.Service;
 
 /**
@@ -27,7 +32,14 @@ public class RebateComp implements IComponent {
     @Override
     public void load() {
 
+        ManagerFactory.getInstance().putFactory(RebateConstants.METHOD_REBATE_FINDALL,new FindRebateBusiness());
+        ManagerFactory.getInstance().putFactory(RebateConstants.METHOD_REBATE_USERCONSUME,new UserConsumeBusiness());
+
         DomainFactory.getInstance().putDomain(RebateConstants.METHOD_REBATE_FINDALL,new FindRebatesDomain());
+        DomainFactory.getInstance().putDomain(RebateConstants.METHOD_REBATE_USERCONSUME,new UserConsumeDomain());
+
+        RebateRepository.getInstance().putEntity(RebateConstants.METHOD_REBATE_FINDALL,new RebateEntity());
+
     }
 
     @Override
@@ -39,6 +51,7 @@ public class RebateComp implements IComponent {
     public void destory() {
         DomainFactory.getInstance().release();
         RebateRepository.getInstance().release();
+        ManagerFactory.getInstance().release();
     }
 
     @Override
