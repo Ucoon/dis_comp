@@ -49,7 +49,9 @@ public class OrderComponent extends BaseComponent implements IComponent {
 
     @Override
     public void destory() {
-
+        ManagerFactory.getInstance().release();
+        DomainFactory.getInstance().release();
+        OrderRepository.getInstance().release();
     }
 
     @Override
