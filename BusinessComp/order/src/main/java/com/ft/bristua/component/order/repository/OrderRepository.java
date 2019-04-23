@@ -21,7 +21,7 @@ public class OrderRepository extends BaseRepository {
 
 
     private OrderRepository(){
-        
+
     }
 
     public void release(){
