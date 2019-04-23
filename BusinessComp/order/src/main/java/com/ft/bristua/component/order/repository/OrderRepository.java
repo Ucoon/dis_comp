@@ -19,6 +19,11 @@ public class OrderRepository extends BaseRepository {
         return sInstance;
     }
 
+
+    private OrderRepository(){
+        
+    }
+
     public void release(){
         mEntitys.clear();
         sInstance=null;
