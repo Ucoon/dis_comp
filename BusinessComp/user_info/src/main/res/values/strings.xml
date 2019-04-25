@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">user_info</string>
+    <string name="userpay_error_http">用户信息获取失败，通讯模组没有初始化</string>
+    <string name="userpay_failure_parser">用户在信息获取模块中，数据解析失败，请检查传入的参数是否符合json合法参数</string>
+</resources>
