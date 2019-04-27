@@ -16,7 +16,6 @@ import com.ft.business.component.domain.EvaluateDomainFactory;
 import com.ft.business.component.domain.GoodsEvaluateDomain;
 import com.ft.business.component.entity.AllEvaluateEntity;
 import com.ft.business.component.entity.GoodsEvaluateEntity;
-import com.ft.business.component.event.MobileEvent;
 import com.ft.business.component.repository.EvaluateRepository;
 import com.nd.adhoc.framework.business.ManagerFactory;
 import com.nd.sdp.android.serviceloader.annotation.Service;
@@ -61,7 +60,6 @@ public class EvaluateComp implements IComponent {
     @Override
     public void destory() {
         Logger.LOGD(TAG, "destory", "");
-        MobileEvent.getInstance().release();
         EvaluateDomainFactory.getFactory().release();
         EvaluateRepository.getFactory().release();
     }
@@ -73,7 +71,6 @@ public class EvaluateComp implements IComponent {
 
     @Override
     public void param(@NonNull IRouteMeta pMeta) {
-        MobileEvent.newInstance(pMeta.getResult());
         EvaluateBuisiness business = (EvaluateBuisiness) AppConfig.getInstance().getAppContext().getBusinessManager(EvaluateConstant.EVALUATE);
         business.execute(pMeta.getProtocol(), pMeta.getResult());
     }
