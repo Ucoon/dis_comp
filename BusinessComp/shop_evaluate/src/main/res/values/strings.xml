@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">shop_evaluate</string>
+    <string name="shopevaluate_error_http">商品评价失败，通讯模组没有初始化</string>
+    <string name="allevaluate_error_http">获取所有评价失败，通讯模组没有初始化</string>
+</resources>
