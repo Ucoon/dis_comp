@@ -16,7 +16,6 @@ import com.ft.business.component.domain.CollectionDomainFactory;
 import com.ft.business.component.domain.GoodsCollectionDomain;
 import com.ft.business.component.entity.AllCollectionEntity;
 import com.ft.business.component.entity.GoodsCollectionEntity;
-import com.ft.business.component.event.MobileEvent;
 import com.ft.business.component.repository.CollectionRepository;
 import com.nd.adhoc.framework.business.ManagerFactory;
 import com.nd.sdp.android.serviceloader.annotation.Service;
@@ -61,7 +60,6 @@ public class CollectionComp implements IComponent {
     @Override
     public void destory() {
         Logger.LOGD(TAG, "destory", "");
-        MobileEvent.getInstance().release();
         CollectionDomainFactory.getFactory().release();
         CollectionRepository.getFactory().release();
     }
@@ -73,7 +71,6 @@ public class CollectionComp implements IComponent {
 
     @Override
     public void param(@NonNull IRouteMeta pMeta) {
-        MobileEvent.newInstance(pMeta.getResult());
         CollectionBuisiness business = (CollectionBuisiness) AppConfig.getInstance().getAppContext().getBusinessManager(CollectionConstant.EVALUATE);
         business.execute(pMeta.getProtocol(), pMeta.getResult());
     }
