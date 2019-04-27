@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">feature_collection</string>
+
+    <string name="shopcollection_error_http">商品收藏失败，通讯模组没有初始化</string>
+    <string name="allcollection_error_http">获取所有收藏失败，通讯模组没有初始化</string>
+</resources>
