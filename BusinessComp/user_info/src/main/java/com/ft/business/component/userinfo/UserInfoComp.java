@@ -13,7 +13,6 @@ import com.ft.business.component.userinfo.business.WXInfoBusiness;
 import com.ft.business.component.userinfo.domain.UserInfoDomainFactory;
 import com.ft.business.component.userinfo.domain.WXInfoDomain;
 import com.ft.business.component.userinfo.entity.WXInfoEntity;
-import com.ft.business.component.userinfo.event.MobileEvent;
 import com.ft.business.component.userinfo.repository.UserInfoRepository;
 import com.nd.adhoc.framework.business.ManagerFactory;
 import com.nd.sdp.android.serviceloader.annotation.Service;
@@ -52,7 +51,6 @@ public class UserInfoComp implements IComponent {
     @Override
     public void destory() {
         Logger.LOGD(TAG, "destory", "");
-        MobileEvent.getInstance().release();
         UserInfoDomainFactory.getFactory().release();
         UserInfoRepository.getFactory().release();
     }
@@ -64,7 +62,6 @@ public class UserInfoComp implements IComponent {
 
     @Override
     public void param(@NonNull IRouteMeta pMeta) {
-        MobileEvent.newInstance(pMeta.getResult());
         UserInfoBuisiness business = (UserInfoBuisiness) AppConfig.getInstance().getAppContext().getBusinessManager(UserInfoConstant.USER_INFO);
         business.execute(pMeta.getProtocol(), pMeta.getResult());
     }
