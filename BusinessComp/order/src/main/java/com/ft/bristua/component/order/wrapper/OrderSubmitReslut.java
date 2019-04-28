@@ -1,31 +1,13 @@
 package com.ft.bristua.component.order.wrapper;
 
 public class OrderSubmitReslut {
-    private String tradeOrderId;
-    private String goodsDesc;
-    private String attach;
+    private String orderId;
 
-    public String getTradeOrderId() {
-        return tradeOrderId;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setTradeOrderId(String tradeOrderId) {
-        this.tradeOrderId = tradeOrderId;
-    }
-
-    public String getGoodsDesc() {
-        return goodsDesc;
-    }
-
-    public void setGoodsDesc(String goodsDesc) {
-        this.goodsDesc = goodsDesc;
-    }
-
-    public String getAttach() {
-        return attach;
-    }
-
-    public void setAttach(String attach) {
-        this.attach = attach;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }
