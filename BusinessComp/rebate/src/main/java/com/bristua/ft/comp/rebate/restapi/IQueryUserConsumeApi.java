@@ -14,7 +14,6 @@ public interface IQueryUserConsumeApi {
      * 获取当前用户的消费情况
      * @return
      */
-    @FormUrlEncoded
     @POST("/api/query/user/consume")
     // todo zyb 建议后端将post改为get
     Observable<String> queryUserConsume();

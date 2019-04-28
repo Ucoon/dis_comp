@@ -18,6 +18,6 @@ public class FindRebatesDomain implements IDomain {
     public void execute(@NonNull IEntity pEntity, @NonNull IFlutterResult pResult) {
         RebateEntity rebateEntity= (RebateEntity) pEntity;
         RebateWrapper rebateWrapper=rebateEntity.getObjectValue();
-        FindRebatesService.findIntegral(rebateWrapper.getPageNo(),rebateWrapper.getPageSize(),pResult);
+        FindRebatesService.findIntegral(rebateWrapper.getPageSize(),rebateWrapper.getPageNo(),pResult);
     }
 }
