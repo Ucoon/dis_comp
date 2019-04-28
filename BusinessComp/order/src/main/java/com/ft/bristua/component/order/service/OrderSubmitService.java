@@ -13,6 +13,7 @@ import com.bristua.framework.system.AppContext;
 import com.bristua.ft.protocol.ProtocolFactory;
 import com.ft.bristua.component.order.R;
 import com.ft.bristua.component.order.restapi.IOrderApi;
+import com.ft.bristua.component.order.wrapper.OrderSubmitReslut;
 import com.ft.bristua.component.order.wrapper.OrderSubmitWrapper;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,7 +52,8 @@ public class OrderSubmitService {
                         if (TextUtils.isEmpty(result)) {
                             flutterResult = ProtocolFactory.convertToJson("", 200, null);
                         } else {
-                            flutterResult = ProtocolFactory.convertToJson("", 200, result);
+                            OrderSubmitReslut orderSubmitReslut = JSON.parseObject(result, OrderSubmitReslut.class);
+                            flutterResult = ProtocolFactory.convertToJson("", 200, orderSubmitReslut);
                         }
                         //todo zyb 尝试看下情况是否靠谱
                         pResult.success(flutterResult, 200, null);
