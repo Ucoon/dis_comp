@@ -16,7 +16,7 @@ public interface IQueryFirendConsumeApi {
      * @param pageSize  一页的条数
      * @return
      */
-    @POST("/api/user/query/integral/{pageNo}/{pageSize}")
+    @POST("/mall/api/user/query/integral/{pageNo}/{pageSize}")
     // todo zyb 建议后端将post改为get
     Observable<String> queryIntegral(@Path("pageNo") int pageNo,@Path("pageSize") int pageSize);
 }
