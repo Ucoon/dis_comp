@@ -63,8 +63,8 @@ public class MobileCodeService {
                     @Override
                     public void accept(String result) {
                         AndroidRxManager.clear();
-                        String success = ProtocolFactory.convertToJson("", 500, result);
-                        pResult.success(success, 500, null);
+                        String success = ProtocolFactory.convertToJson("验证码发送成功", 200, result);
+                        pResult.success(success, 200, null);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

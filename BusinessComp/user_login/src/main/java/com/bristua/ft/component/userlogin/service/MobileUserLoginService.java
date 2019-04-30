@@ -66,7 +66,7 @@ public class MobileUserLoginService {
         userInfo.setInviteCode(inviteCode);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), JSON.toJSON(userInfo).toString());
         Disposable disposable=restApi.userLogin(body)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
                     @Override
