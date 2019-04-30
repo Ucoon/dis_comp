@@ -57,10 +57,10 @@ public class HttpResponseInterceptor implements Interceptor {
         //检测当前是否符合200
         if ((httpResult.getCode() == INTERCEPT_SUCCESS)
                 || (httpResult.getCode() == HttpStatus.STATUS_CODE_SUCCESS)) {
-            if (httpResult.getData() != null) {
+            if (httpResult.getData() == null) {
                 //获取到拦截失败后的对象描述
                 //此处需要进行统一异常拦截
-                response = new Response.Builder()
+                return new Response.Builder()
                         .request(request)
                         .protocol(Protocol.HTTP_1_1)
                         .code(HttpStatus.STATUS_CODE_SUCCESS)
@@ -68,23 +68,29 @@ public class HttpResponseInterceptor implements Interceptor {
                         .message("")
                         .body(ResponseBody.create(MediaType.parse("application/json"), ""))
                         .build();
-                return response;
             }
             //拦截带token的数据包体，取出token后，放入header中
             String data = JSON.toJSONString(httpResult.getData());
             AccessTokenData accessTokenData = JSONObject.parseObject(data, AccessTokenData.class);
             if (!TextUtils.isEmpty(accessTokenData.getToken())) {
                 TokenManager.saveToken(accessTokenData.getToken());
-                return response;
+                return  new Response.Builder()
+                        .request(request)
+                        .protocol(Protocol.HTTP_1_1)
+                        .code(HttpStatus.STATUS_CODE_SUCCESS)
+                        .addHeader("Content-Type", "application/json")
+                        .message("")
+                        .body(ResponseBody.create(MediaType.parse("application/json"), ""))
+                        .build();
             }
             //制造数据报文只返回data数据源
             String resultData = null;
-            if(httpResult.getData() instanceof String){
-                resultData=(String) httpResult.getData();
-            }else{
-                resultData=JSON.toJSONString(httpResult.getData());
+            if (httpResult.getData() instanceof String) {
+                resultData = (String) httpResult.getData();
+            } else {
+                resultData = JSON.toJSONString(httpResult.getData());
             }
-            response = new Response.Builder()
+            return new Response.Builder()
                     .request(request)
                     .protocol(Protocol.HTTP_1_1)
                     .code(HttpStatus.STATUS_CODE_SUCCESS)
@@ -92,7 +98,6 @@ public class HttpResponseInterceptor implements Interceptor {
                     .message("")
                     .body(ResponseBody.create(MediaType.parse("application/json"), resultData))
                     .build();
-            return response;
 
         }
         //此处需要进行统一异常拦截
