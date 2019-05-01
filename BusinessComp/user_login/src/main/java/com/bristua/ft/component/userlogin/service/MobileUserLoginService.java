@@ -72,7 +72,8 @@ public class MobileUserLoginService {
                     @Override
                     public void accept(String result) {
                         AndroidRxManager.clear();
-                        pResult.success(result,200,null);
+                        String flutterSuccess = ProtocolFactory.convertToJson("验证码发送成功", 200, result);
+                        pResult.success(flutterSuccess,200,null);
 
                     }
                 }, new Consumer<Throwable>() {
@@ -85,7 +86,5 @@ public class MobileUserLoginService {
                     }
                 });
         AndroidRxManager.addDisposable(disposable);
-
-
     }
 }

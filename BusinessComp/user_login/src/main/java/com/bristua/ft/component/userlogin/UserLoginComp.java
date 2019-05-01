@@ -7,9 +7,11 @@ import com.bristua.framework.define.annotation.Router;
 import com.bristua.framework.define.router.IRouteMeta;
 import com.bristua.framework.logger.Logger;
 import com.bristua.ft.component.userlogin.business.ActivityStartBusiness;
+import com.bristua.ft.component.userlogin.business.GetUserInfoBusiness;
 import com.bristua.ft.component.userlogin.business.MobileCodeBusiness;
 import com.bristua.ft.component.userlogin.business.MobileLoginBusiness;
 import com.bristua.ft.component.userlogin.business.WxLoginBusiness;
+import com.bristua.ft.component.userlogin.domain.GetUserInfoDomain;
 import com.bristua.ft.component.userlogin.domain.MobileUserDomain;
 import com.bristua.ft.component.userlogin.domain.SmsCodeDomain;
 import com.bristua.ft.component.userlogin.domain.UserLoginDomainFactory;
@@ -21,10 +23,11 @@ import com.bristua.ft.component.userlogin.business.UserLoginBuisiness;
 import com.bristua.ft.component.userlogin.repository.UserLoginRepository;
 import com.nd.adhoc.framework.business.ManagerFactory;
 import com.nd.sdp.android.serviceloader.annotation.Service;
+import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_INFO;
 import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_MOBILE;
 import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_SMSCODE;
 import static com.bristua.ft.component.userlogin.UserLoginConstant.USER_METHOD_WX;
-import static com.bristua.ft.component.userlogin.UserLoginConstant.WX_AWAKEN_MODULE;
+import static com.bristua.ft.component.userlogin.UserLoginConstant.WX_METHOD_WAKEN;
 
 /**
  * 用户登录模组
@@ -49,17 +52,20 @@ public class UserLoginComp implements IComponent {
         ManagerFactory.getInstance().putFactory(USER_METHOD_MOBILE,new MobileLoginBusiness());
         ManagerFactory.getInstance().putFactory(USER_METHOD_SMSCODE,new MobileCodeBusiness());
         ManagerFactory.getInstance().putFactory(USER_METHOD_WX,new ActivityStartBusiness());
-        ManagerFactory.getInstance().putFactory(WX_AWAKEN_MODULE,new WxLoginBusiness());
+        ManagerFactory.getInstance().putFactory(WX_METHOD_WAKEN,new WxLoginBusiness());
+        ManagerFactory.getInstance().putFactory(USER_METHOD_INFO,new GetUserInfoBusiness());
 
 
         UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_MOBILE,new MobileUserDomain());
 //        UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_WX,new WxUserDomain());
         UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_SMSCODE,new SmsCodeDomain());
-        UserLoginDomainFactory.getFactory().putDomain(WX_AWAKEN_MODULE,new WxUserDomain());
+        UserLoginDomainFactory.getFactory().putDomain(WX_METHOD_WAKEN,new WxUserDomain());
+        UserLoginDomainFactory.getFactory().putDomain(USER_METHOD_INFO,new GetUserInfoDomain());
+
 
         UserLoginRepository.getFactory().putEntity(USER_METHOD_MOBILE,new MobileLoginEntity());
 //        UserLoginRepository.getFactory().putEntity(USER_METHOD_WX,new WxLoginEntity());
-        UserLoginRepository.getFactory().putEntity(WX_AWAKEN_MODULE,new WxLoginEntity());
+        UserLoginRepository.getFactory().putEntity(WX_METHOD_WAKEN,new WxLoginEntity());
 
         UserLoginRepository.getFactory().putEntity(USER_METHOD_SMSCODE,new MobileLoginEntity());
 
