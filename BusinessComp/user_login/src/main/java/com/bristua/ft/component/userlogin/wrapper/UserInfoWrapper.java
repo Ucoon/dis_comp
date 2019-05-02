@@ -1,4 +1,5 @@
 package com.bristua.ft.component.userlogin.wrapper;
+import android.text.TextUtils;
 
 /**
  * 获取用户信息
@@ -51,7 +52,7 @@ public class UserInfoWrapper {
 
 
     public String getBalanceAmt() {
-        return balanceAmt;
+        return TextUtils.isEmpty(balanceAmt)?"0".trim():balanceAmt;
     }
 
     public void setBalanceAmt(String balanceAmt) {
@@ -59,7 +60,7 @@ public class UserInfoWrapper {
     }
 
     public String getTotalConsume() {
-        return totalConsume;
+        return TextUtils.isEmpty(totalConsume)?"0".trim():totalConsume;
     }
 
     public void setTotalConsume(String totalConsume) {
@@ -67,7 +68,7 @@ public class UserInfoWrapper {
     }
 
     public String getUserCode() {
-        return userCode;
+        return TextUtils.isEmpty(userCode)?"-".trim():userCode;
     }
 
     public void setUserCode(String userCode) {
@@ -75,7 +76,7 @@ public class UserInfoWrapper {
     }
 
     public String getPhone() {
-        return phone;
+        return TextUtils.isEmpty(phone)?"-".trim():phone;
     }
 
     public void setPhone(String phone) {
@@ -83,7 +84,7 @@ public class UserInfoWrapper {
     }
 
     public String getInviteNum() {
-        return inviteNum;
+        return TextUtils.isEmpty(inviteNum)?"0".trim():inviteNum;
     }
 
     public void setInviteNum(String inviteNum) {
@@ -91,7 +92,7 @@ public class UserInfoWrapper {
     }
 
     public String getParentId() {
-        return parentId;
+        return TextUtils.isEmpty(parentId)?"-".trim():parentId;
     }
 
     public void setParentId(String parentId) {
@@ -99,7 +100,7 @@ public class UserInfoWrapper {
     }
 
     public String getCreateTime() {
-        return createTime;
+        return TextUtils.isEmpty(createTime)?"-".trim():createTime;
     }
 
     public void setCreateTime(String createTime) {
@@ -107,7 +108,7 @@ public class UserInfoWrapper {
     }
 
     public String getUserLevel() {
-        return userLevel;
+        return TextUtils.isEmpty(userLevel)?"-".trim():userLevel;
     }
 
     public void setUserLevel(String userLevel) {
@@ -115,7 +116,7 @@ public class UserInfoWrapper {
     }
 
     public String getUserSex() {
-        return userSex;
+        return TextUtils.isEmpty(userSex)?"-".trim():userSex;
     }
 
     public void setUserSex(String userSex) {
@@ -123,7 +124,7 @@ public class UserInfoWrapper {
     }
 
     public String getUserImgUrl() {
-        return userImgUrl;
+        return TextUtils.isEmpty(userImgUrl)?"file://".trim():userImgUrl;
     }
 
     public void setUserImgUrl(String userImgUrl) {
@@ -131,7 +132,7 @@ public class UserInfoWrapper {
     }
 
     public String getOpenId() {
-        return openId;
+        return TextUtils.isEmpty(openId)?"-".trim():openId;
     }
 
     public void setOpenId(String openId) {
@@ -139,7 +140,7 @@ public class UserInfoWrapper {
     }
 
     public String getNickName() {
-        return nickName;
+        return TextUtils.isEmpty(openId)?"-".trim():nickName;
     }
 
     public void setNickName(String nickName) {
@@ -147,7 +148,7 @@ public class UserInfoWrapper {
     }
 
     public String getCityName() {
-        return cityName;
+        return TextUtils.isEmpty(cityName)?"-".trim():cityName;
     }
 
     public void setCityName(String cityName) {
@@ -155,7 +156,7 @@ public class UserInfoWrapper {
     }
 
     public String getCountryName() {
-        return countryName;
+        return TextUtils.isEmpty(countryName)?"-".trim():countryName;
     }
 
     public void setCountryName(String countryName) {
@@ -163,7 +164,7 @@ public class UserInfoWrapper {
     }
 
     public String getProvinceName() {
-        return provinceName;
+        return TextUtils.isEmpty(provinceName)?"-".trim():provinceName;
     }
 
     public void setProvinceName(String provinceName) {
@@ -171,7 +172,7 @@ public class UserInfoWrapper {
     }
 
     public String getImgUrl() {
-        return imgUrl;
+        return TextUtils.isEmpty(imgUrl)?"-".trim():imgUrl;
     }
 
     public void setImgUrl(String imgUrl) {

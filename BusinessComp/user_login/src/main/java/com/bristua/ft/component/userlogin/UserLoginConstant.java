@@ -30,6 +30,11 @@ public class UserLoginConstant {
      * 获取用户信息
      */
     public  final static String USER_METHOD_INFO="getUserInfo";
+
+    /**
+     * 绑定用户手机号
+     */
+    public  final static String USER_METHOD_BINDMOBILE="bindUserMobile";
     /**
      * 手机号
      */
