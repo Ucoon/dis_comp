@@ -7,7 +7,7 @@ public class BindUserWrapper extends MobileUserWrapper {
 
     private String inviteCode;
     public String getInviteCode() {
-        return inviteCode=="-"?"":inviteCode;
+        return inviteCode.equals("-")?"0":inviteCode;
     }
 
     public void setInviteCode(String inviteCode) {
