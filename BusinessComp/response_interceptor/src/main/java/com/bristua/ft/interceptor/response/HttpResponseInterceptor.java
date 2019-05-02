@@ -1,10 +1,12 @@
 package com.bristua.ft.interceptor.response;
 
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bristua.framework.logger.Logger;
+import com.bristua.framework.router.BRouter;
 import com.bristua.ft.interceptor.response.exception.BristuaApiException;
 import com.bristua.ft.interceptor.response.manager.TokenManager;
 import com.bristua.ft.interceptor.response.wrapper.AccessTokenData;
@@ -28,6 +30,16 @@ public class HttpResponseInterceptor implements Interceptor {
     private final String TOKEN = "token";
 
     private final int INTERCEPT_SUCCESS = 0;
+    /**
+     * 会话过期
+     */
+    private final int INTERCEPT_SESSION_EXPIR=9002;
+    /**
+     * 无效会话
+     */
+    private final int INTERCEPT_SESSION_FAIL=9001;
+
+    private final String SESSION_MODULE="session";
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -101,6 +113,16 @@ public class HttpResponseInterceptor implements Interceptor {
 
         }
         //此处需要进行统一异常拦截
+        if((httpResult.getCode() == INTERCEPT_SESSION_EXPIR)
+                || (httpResult.getCode() == INTERCEPT_SESSION_FAIL)){
+            try {
+                BRouter.getInstance().build(SESSION_MODULE).navigation();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return response;
+        }
         throw new BristuaApiException(httpResult.getMsg(), httpResult.getCode());
     }
 }
