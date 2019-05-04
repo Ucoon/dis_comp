@@ -40,8 +40,7 @@ public class OrderCancelService {
             return;
         }
         IOrderApi restApi = retrofit.create(IOrderApi.class);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), JSON.toJSON(pWrapper).toString());
-        Disposable disposable = restApi.cancel(body)
+        Disposable disposable = restApi.cancel(pWrapper.getOrderId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
