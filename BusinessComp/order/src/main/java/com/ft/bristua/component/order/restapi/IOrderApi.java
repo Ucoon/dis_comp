@@ -18,7 +18,7 @@ public interface IOrderApi {
      * @param pBody
      * @return
      */
-    @POST("/mall/api/order/detail")
+    @POST("/mall/api/order/submit")
     @Headers("Content-Type:application/json")
     Observable<String> submit(@Body RequestBody pBody);
 
