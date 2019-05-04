@@ -44,4 +44,14 @@ public interface IOrderApi {
     @Headers("Content-Type:application/json")
     Observable<String> confirm(@Path("orderId") String orderId);
 
+
+    /**
+     * 评价订单
+     *
+     * @param pBody
+     * @return
+     */
+    @POST("/mall/api/order/goods/evaluate")
+    @Headers("Content-Type:application/json")
+    Observable<String> comment(@Body RequestBody pBody);
 }
