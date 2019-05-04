@@ -2,6 +2,16 @@ package com.ft.bristua.component.order.wrapper;
 
 public class GoodsWrapper {
 
+    private String productId;
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
     private String goodsId;
 
     private int buyNum;
