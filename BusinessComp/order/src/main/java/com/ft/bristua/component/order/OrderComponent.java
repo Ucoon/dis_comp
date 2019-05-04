@@ -9,6 +9,7 @@ import com.bristua.framework.define.IFlutterResult;
 import com.bristua.framework.define.annotation.Router;
 import com.bristua.framework.define.router.IRouteMeta;
 import com.ft.bristua.component.order.business.OrderBusiness;
+import com.ft.bristua.component.order.business.OrderCancelBusiness;
 import com.ft.bristua.component.order.business.OrderDetailBusiness;
 import com.ft.bristua.component.order.business.OrderSubmitBusiness;
 import com.ft.bristua.component.order.domain.DomainFactory;
@@ -39,6 +40,8 @@ public class OrderComponent extends BaseComponent implements IComponent {
     public void load() {
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METGOD_ORDER_DETAIL,new OrderDetailBusiness());
+        ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelBusiness());
+
         //添加实体域--订单提交
         OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitEntity());
         DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitDomain());

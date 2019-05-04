@@ -51,12 +51,8 @@ public class OrderCancelService {
                         String flutterResult = "";
                         if (TextUtils.isEmpty(result)) {
                             flutterResult = ProtocolFactory.convertToJson("", 200, null);
-                        } else {
-                            OrderSubmitReslut orderSubmitReslut = JSON.parseObject(result, OrderSubmitReslut.class);
-                            flutterResult = ProtocolFactory.convertToJson("", 200, orderSubmitReslut);
                         }
                         pResult.success(flutterResult, 200, null);
-
                     }
                 }, new Consumer<Throwable>() {
                     @Override
