@@ -40,7 +40,7 @@ public interface IOrderApi {
      * @param orderId
      * @return
      */
-    @POST("/mall//api/order/confirm/receipt/{orderId}")
+    @POST("/mall/api/order/confirm/receipt/{orderId}")
     @Headers("Content-Type:application/json")
     Observable<String> confirm(@Path("orderId") String orderId);
 
