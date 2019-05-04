@@ -20,4 +20,7 @@ public interface IOrderApi {
     Observable<String> submit(@Body RequestBody pBody);
 
 
+    @POST("/mall/api/order/cancel")
+    @Headers("Content-Type:application/json")
+    Observable<String> cancel(@Body RequestBody pBody);
 }
