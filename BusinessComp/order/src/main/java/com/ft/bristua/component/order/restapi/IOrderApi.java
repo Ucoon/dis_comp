@@ -18,7 +18,7 @@ public interface IOrderApi {
      * @param pBody
      * @return
      */
-    @POST("/mall/api/order/submit")
+    @POST("/mall/api/order/detail")
     @Headers("Content-Type:application/json")
     Observable<String> submit(@Body RequestBody pBody);
 
@@ -54,4 +54,14 @@ public interface IOrderApi {
     @POST("/mall/api/order/goods/evaluate")
     @Headers("Content-Type:application/json")
     Observable<String> comment(@Body RequestBody pBody);
+
+    /**
+     * 订单详情
+     *
+     * @param orderId
+     * @return
+     */
+    @POST("/mall /api/order/detail/{orderId}")
+    @Headers("Content-Type:application/json")
+    Observable<String> detail(@Path("orderId") String orderId);
 }

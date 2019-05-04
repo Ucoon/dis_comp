@@ -16,6 +16,7 @@ import com.ft.bristua.component.order.business.OrderSubmitBusiness;
 import com.ft.bristua.component.order.domain.DomainFactory;
 import com.ft.bristua.component.order.domain.OrderCancelDomain;
 import com.ft.bristua.component.order.domain.OrderCommentDomain;
+import com.ft.bristua.component.order.domain.OrderDetailDomain;
 import com.ft.bristua.component.order.domain.OrderSubmitDomain;
 import com.ft.bristua.component.order.entity.OrderCancelEntity;
 import com.ft.bristua.component.order.entity.OrderCommentEntity;
@@ -46,6 +47,7 @@ public class OrderComponent extends BaseComponent implements IComponent {
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_CONFIRM,new OrderCancelBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_COMMENT,new OrderCommentBusiness());
+        ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_DETAIL,new OrderDetailBusiness());
 
 
         //添加实体域--订单提交
@@ -61,6 +63,9 @@ public class OrderComponent extends BaseComponent implements IComponent {
 
         OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_COMMENT,new OrderCommentEntity());
         DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_COMMENT,new OrderCommentDomain());
+
+        OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_DETAIL,new OrderCancelEntity());
+        DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_DETAIL,new OrderDetailDomain());
     }
 
     @Override

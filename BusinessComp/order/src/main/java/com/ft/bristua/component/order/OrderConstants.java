@@ -32,6 +32,11 @@ public class OrderConstants {
      */
     public final static String METHOD_ORDER_COMMENT="order_comment";
 
+    /**
+     * 订单详情
+     */
+    public final static String METHOD_ORDER_DETAIL="order_detail";
+
 //    /**
 //     * 切换订单状态(移到订单列表组件中去维护)
 //     */
