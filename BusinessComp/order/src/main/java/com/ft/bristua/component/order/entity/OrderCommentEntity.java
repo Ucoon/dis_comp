@@ -1,7 +1,6 @@
 package com.ft.bristua.component.order.entity;
 
 import com.ft.bristua.component.order.wrapper.OrderCommentWrapper;
-import com.ft.bristua.component.order.wrapper.OrderSubmitWrapper;
 import com.nd.adhoc.framework.entity.IEntity;
 
 /**

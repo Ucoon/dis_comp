@@ -1,14 +1,12 @@
 package com.ft.bristua.component.order.wrapper;
 
-import com.ft.bristua.component.order.entity.GoodsEvaluateEntity;
-
 import java.util.List;
 
 public class OrderCommentWrapper {
 
     private String orderId;
 
-    private List<GoodsEvaluateEntity> goodsEvaluates;
+    private List<GoodsEvaluateWapper> goodsEvaluates;
 
     public String getOrderId() {
         return orderId;
@@ -18,11 +16,11 @@ public class OrderCommentWrapper {
         this.orderId = orderId;
     }
 
-    public List<GoodsEvaluateEntity> getGoodsEvaluates() {
+    public List<GoodsEvaluateWapper> getGoodsEvaluates() {
         return goodsEvaluates;
     }
 
-    public void setGoodsEvaluates(List<GoodsEvaluateEntity> goodsEvaluates) {
+    public void setGoodsEvaluates(List<GoodsEvaluateWapper> goodsEvaluates) {
         this.goodsEvaluates = goodsEvaluates;
     }
 

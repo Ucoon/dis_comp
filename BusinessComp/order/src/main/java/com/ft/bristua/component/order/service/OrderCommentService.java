@@ -14,8 +14,6 @@ import com.bristua.ft.protocol.ProtocolFactory;
 import com.ft.bristua.component.order.R;
 import com.ft.bristua.component.order.restapi.IOrderApi;
 import com.ft.bristua.component.order.wrapper.OrderCommentWrapper;
-import com.ft.bristua.component.order.wrapper.OrderSubmitReslut;
-import com.ft.bristua.component.order.wrapper.OrderSubmitWrapper;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
