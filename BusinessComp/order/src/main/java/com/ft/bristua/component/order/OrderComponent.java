@@ -41,6 +41,7 @@ public class OrderComponent extends BaseComponent implements IComponent {
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METGOD_ORDER_DETAIL,new OrderDetailBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelBusiness());
+        ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_CONFIRM,new OrderCancelBusiness());
 
         //添加实体域--订单提交
         OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitEntity());
@@ -48,6 +49,9 @@ public class OrderComponent extends BaseComponent implements IComponent {
 
         OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelEntity());
         DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelDomain());
+
+        OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_CONFIRM,new OrderCancelEntity());
+        DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_CONFIRM,new OrderCancelDomain());
     }
 
     @Override

@@ -1,4 +1,5 @@
 package com.ft.bristua.component.order.restapi;
+
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -13,6 +14,7 @@ import retrofit2.http.Url;
 public interface IOrderApi {
     /**
      * 提交订单
+     *
      * @param pBody
      * @return
      */
@@ -21,8 +23,25 @@ public interface IOrderApi {
     Observable<String> submit(@Body RequestBody pBody);
 
 
-
+    /**
+     * 取消订单
+     *
+     * @param orderId
+     * @return
+     */
     @POST("/mall/api/order/cancel/{orderId}")
     @Headers("Content-Type:application/json")
     Observable<String> cancel(@Path("orderId") String orderId);
+
+
+    /**
+     * 确认收货
+     *
+     * @param orderId
+     * @return
+     */
+    @POST("/mall//api/order/confirm/receipt/{orderId}")
+    @Headers("Content-Type:application/json")
+    Observable<String> confirm(@Path("orderId") String orderId);
+
 }

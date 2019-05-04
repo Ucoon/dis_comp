@@ -22,6 +22,11 @@ public class OrderConstants {
      */
     public final static String METHOD_ORDER_CANCEL="order_cancel";
 
+    /**
+     * 确认收货
+     */
+    public final static String METHOD_ORDER_CONFIRM="order_confirm";
+
 //    /**
 //     * 切换订单状态(移到订单列表组件中去维护)
 //     */
