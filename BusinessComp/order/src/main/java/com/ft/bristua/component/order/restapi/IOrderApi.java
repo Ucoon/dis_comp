@@ -61,7 +61,7 @@ public interface IOrderApi {
      * @param orderId
      * @return
      */
-    @POST("/mall /api/order/detail/{orderId}")
+    @POST("/mall/api/order/detail/{orderId}")
     @Headers("Content-Type:application/json")
     Observable<String> detail(@Path("orderId") String orderId);
 }
