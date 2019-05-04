@@ -17,6 +17,10 @@ public class OrderConstants {
      * 订单详情
      */
     public final static String METGOD_ORDER_DETAIL="order_detail";
+    /**
+     * 订单的取消
+     */
+    public final static String METHOD_ORDER_CANCEL="order_cancel";
 
 //    /**
 //     * 切换订单状态(移到订单列表组件中去维护)

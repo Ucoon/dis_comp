@@ -12,7 +12,9 @@ import com.ft.bristua.component.order.business.OrderBusiness;
 import com.ft.bristua.component.order.business.OrderDetailBusiness;
 import com.ft.bristua.component.order.business.OrderSubmitBusiness;
 import com.ft.bristua.component.order.domain.DomainFactory;
+import com.ft.bristua.component.order.domain.OrderCancelDomain;
 import com.ft.bristua.component.order.domain.OrderSubmitDomain;
+import com.ft.bristua.component.order.entity.OrderCancelEntity;
 import com.ft.bristua.component.order.entity.OrderSubmitEntity;
 import com.ft.bristua.component.order.repository.OrderRepository;
 import com.nd.adhoc.framework.BaseComponent;
@@ -40,6 +42,9 @@ public class OrderComponent extends BaseComponent implements IComponent {
         //添加实体域--订单提交
         OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitEntity());
         DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitDomain());
+
+        OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelEntity());
+        DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelDomain());
     }
 
     @Override
