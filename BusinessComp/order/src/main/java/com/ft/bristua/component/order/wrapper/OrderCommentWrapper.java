@@ -8,7 +8,7 @@ public class OrderCommentWrapper {
 
     private String orderId;
 
-    private List<GoodsEvaluateEntity> goods;
+    private List<GoodsEvaluateEntity> goodsEvaluates;
 
     public String getOrderId() {
         return orderId;
@@ -18,16 +18,13 @@ public class OrderCommentWrapper {
         this.orderId = orderId;
     }
 
-    public List<GoodsEvaluateEntity> getGoods() {
-        return goods;
+    public List<GoodsEvaluateEntity> getGoodsEvaluates() {
+        return goodsEvaluates;
     }
 
-    public void setGoods(List<GoodsEvaluateEntity> goods) {
-        this.goods = goods;
+    public void setGoodsEvaluates(List<GoodsEvaluateEntity> goodsEvaluates) {
+        this.goodsEvaluates = goodsEvaluates;
     }
 
-    public OrderCommentWrapper(String orderId, List<GoodsEvaluateEntity> goods) {
-        this.orderId = orderId;
-        this.goods = goods;
-    }
+
 }
