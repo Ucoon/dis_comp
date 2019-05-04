@@ -22,7 +22,7 @@ public interface IOrderApi {
 
 
 
-    @POST("/mall/api/order/cancel{code}")
+    @POST("/mall/api/order/cancel{orderId}")
     @Headers("Content-Type:application/json")
     Observable<String> cancel(@Path("orderId") String orderId);
 }
