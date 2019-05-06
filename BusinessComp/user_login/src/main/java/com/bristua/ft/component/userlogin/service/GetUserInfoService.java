@@ -21,6 +21,7 @@ import com.bristua.ft.protocol.ProtocolFactory;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
@@ -46,13 +47,13 @@ public class GetUserInfoService {
             return;
         }
         IGetUserInfoApi restApi= retrofit.create(IGetUserInfoApi.class);
-        Disposable disposable=restApi.getUserInfo()
+        restApi.getUserInfo()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
+                .subscribe(new DisposableObserver<String>() {
+
                     @Override
-                    public void accept(String result) {
-                        AndroidRxManager.clear();
+                    public void onNext(String result) {
                         String flutterSuccess = ProtocolFactory.convertToJson("获取失败", 200, result);
                         if(!TextUtils.isEmpty(result)){
                             UserInfoWrapper wrapper=JSON.parseObject(result,UserInfoWrapper.class);
@@ -60,14 +61,18 @@ public class GetUserInfoService {
                         }
                         pResult.success(flutterSuccess,200,null);
                     }
-                }, new Consumer<Throwable>() {
+
                     @Override
-                    public void accept(Throwable throwable){
-                        AndroidRxManager.clear();
+                    public void onError(Throwable throwable) {
                         String flutterSuccess = ProtocolFactory.convertToJson("获取失败", 200, "");
                         pResult.success(flutterSuccess,200,null);
                     }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
                 });
-        AndroidRxManager.addDisposable(disposable);
+
     }
 }

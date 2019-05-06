@@ -21,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -56,25 +57,28 @@ public class MobileCodeService {
             return;
         }
         ISmsCodeApi restApi = retrofit.create(ISmsCodeApi.class);
-        Disposable disposable = restApi.getSmsCode(mobilePhone)
+         restApi.getSmsCode(mobilePhone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
+                .subscribe(new DisposableObserver<String>() {
+
                     @Override
-                    public void accept(String result) {
-                        AndroidRxManager.clear();
+                    public void onNext(String result) {
                         String success = ProtocolFactory.convertToJson("验证码发送成功", 200, result);
                         pResult.success(success, 200, null);
                     }
-                }, new Consumer<Throwable>() {
+
                     @Override
-                    public void accept(Throwable throwable) {
-                        AndroidRxManager.clear();
+                    public void onError(Throwable throwable) {
                         String errorTip = ProtocolFactory.convertToJson(throwable.getLocalizedMessage(), 500, null);
                         pResult.success(errorTip, 500, null);
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
                 });
-        AndroidRxManager.addDisposable(disposable);
+
     }
 }

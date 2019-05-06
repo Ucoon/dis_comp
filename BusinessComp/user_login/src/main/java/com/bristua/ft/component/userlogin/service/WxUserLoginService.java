@@ -15,6 +15,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -36,27 +37,28 @@ public class WxUserLoginService {
             return;
         }
         IWxLoginApi restApi= retrofit.create(IWxLoginApi.class);
-        Disposable disposable=restApi.wxLogin(pCode)
+      restApi.wxLogin(pCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String result) {
-                        AndroidRxManager.clear();
-                        String flutterSuccess = ProtocolFactory.convertToJson("验证码发送成功", 200, result);
-                        pResult.success(flutterSuccess,200,null);
+              .subscribe(new DisposableObserver<String>() {
 
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable){
-                        AndroidRxManager.clear();
-                        String errorTip = ProtocolFactory.convertToJson(throwable.getLocalizedMessage(), 500, null);
-                        pResult.success(errorTip,500,null);
-                    }
-                });
-        AndroidRxManager.addDisposable(disposable);
+                  @Override
+                  public void onNext(String result) {
+                      String flutterSuccess = ProtocolFactory.convertToJson("验证码发送成功", 200, result);
+                      pResult.success(flutterSuccess,200,null);
+                  }
 
+                  @Override
+                  public void onError(Throwable throwable) {
+                      String errorTip = ProtocolFactory.convertToJson(throwable.getLocalizedMessage(), 500, null);
+                      pResult.success(errorTip,500,null);
+                  }
+
+                  @Override
+                  public void onComplete() {
+
+                  }
+              });
 
     }
 }
