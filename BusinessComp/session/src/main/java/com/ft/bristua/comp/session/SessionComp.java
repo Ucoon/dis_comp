@@ -30,7 +30,8 @@ public class SessionComp implements IComponent {
 
     @Override
     public void destory() {
-
+        SessionBusiness business = (SessionBusiness) AppConfig.getInstance().getAppContext().getBusinessManager(SessionConstants.MODULE);
+        business.relase();
     }
 
     @Override
