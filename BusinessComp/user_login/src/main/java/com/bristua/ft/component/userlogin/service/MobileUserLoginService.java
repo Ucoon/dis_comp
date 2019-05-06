@@ -1,4 +1,5 @@
 package com.bristua.ft.component.userlogin.service;
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import com.bristua.ft.protocol.ProtocolFactory;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
@@ -32,59 +34,61 @@ public class MobileUserLoginService {
 
     /**
      * 执行用户登录
+     *
      * @param pResult
      */
-    public static void login(@NonNull final IFlutterResult pResult){
+    public static void login(@NonNull final IFlutterResult pResult) {
         AndroidRxManager.clear();
-        AppContext appContext= AppConfig.getInstance().getAppContext();
-        Context context=appContext.getContext();
-        String mobilePhone= MobileEvent.getInstance().getPhone();
-        String phoneCode=MobileEvent.getInstance().getPhoneCode();
-        String pInviteCode=MobileEvent.getInstance().getInviteCode();
-        String inviteCode=TextUtils.isEmpty(pInviteCode)?"":pInviteCode;
-        if(TextUtils.isEmpty(mobilePhone)){
+        AppContext appContext = AppConfig.getInstance().getAppContext();
+        Context context = appContext.getContext();
+        String mobilePhone = MobileEvent.getInstance().getPhone();
+        String phoneCode = MobileEvent.getInstance().getPhoneCode();
+        String pInviteCode = MobileEvent.getInstance().getInviteCode();
+        String inviteCode = TextUtils.isEmpty(pInviteCode) ? "" : pInviteCode;
+        if (TextUtils.isEmpty(mobilePhone)) {
             String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_mobile), 500, null);
-            pResult.success(errorTip,500,null);
+            pResult.success(errorTip, 500, null);
             return;
         }
-        if(TextUtils.isEmpty(phoneCode)){
+        if (TextUtils.isEmpty(phoneCode)) {
             String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_validcode), 500, null);
-            pResult.success(errorTip,500,null);
+            pResult.success(errorTip, 500, null);
             return;
         }
         //执行retrofit 下的rx模式
-        Retrofit retrofit= HttpsModule.getInstance().getRetrofit();
-        if(retrofit == null){
+        Retrofit retrofit = HttpsModule.getInstance().getRetrofit();
+        if (retrofit == null) {
             String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.userlogin_error_http), 500, null);
-            pResult.success(errorTip,500,null);
+            pResult.success(errorTip, 500, null);
             return;
         }
-        IMobileUserLoginApi restApi= retrofit.create(IMobileUserLoginApi.class);
-        MobileParam userInfo=new MobileParam();
+        IMobileUserLoginApi restApi = retrofit.create(IMobileUserLoginApi.class);
+        MobileParam userInfo = new MobileParam();
         userInfo.setPhone(mobilePhone);
         userInfo.setPhoneCode(phoneCode);
         userInfo.setInviteCode(inviteCode);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=utf-8"), JSON.toJSON(userInfo).toString());
-        Disposable disposable=restApi.userLogin(body)
+        restApi.userLogin(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String result) {
-                        AndroidRxManager.clear();
-                        pResult.success(result,200,null);
+                .subscribe(new DisposableObserver<String>() {
 
-                    }
-                }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable){
-                        AndroidRxManager.clear();
+                    public void onNext(String result) {
+                        pResult.success(result, 200, null);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
                         String errorTip = ProtocolFactory.convertToJson(throwable.getLocalizedMessage(), 500, null);
-                        pResult.success(errorTip,500,null);
+                        pResult.success(errorTip, 500, null);
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
                 });
-        AndroidRxManager.addDisposable(disposable);
 
 
     }
