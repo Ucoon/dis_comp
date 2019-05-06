@@ -33,13 +33,13 @@ public class HttpResponseInterceptor implements Interceptor {
     /**
      * 会话过期
      */
-    private final int INTERCEPT_SESSION_EXPIR=9002;
+    private final int INTERCEPT_SESSION_EXPIR = 9002;
     /**
      * 无效会话
      */
-    private final int INTERCEPT_SESSION_FAIL=9001;
+    private final int INTERCEPT_SESSION_FAIL = 9001;
 
-    private final String SESSION_MODULE="session";
+    private final String SESSION_MODULE = "session";
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -54,21 +54,28 @@ public class HttpResponseInterceptor implements Interceptor {
         }
 
         Response response = chain.proceed(request);
-
-        //拦截到了response
-        if (response.code() != HttpStatus.STATUS_CODE_SUCCESS) {
-            return response;
-        }
         //解析数据完，制造数据
         String result = response.body().string();
         if (TextUtils.isEmpty(result)) {
-            //不执行重新构造response
+            throw new BristuaApiException("数据读取失败",500);
+        }
+        //不为空，则执行报文解析
+        HttpResult httpResult = JSONObject.parseObject(result, HttpResult.class);
+        //此处需要进行统一异常拦截
+        if ((httpResult.getCode() == INTERCEPT_SESSION_EXPIR)
+                || (httpResult.getCode() == INTERCEPT_SESSION_FAIL)) {
+            try {
+                BRouter.getInstance().build(SESSION_MODULE).navigation();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new BristuaApiException("会话层失效，跳转至登录页失败",500);
+            }
             return response;
         }
-        HttpResult httpResult = JSONObject.parseObject(result, HttpResult.class);
         //检测当前是否符合200
         if ((httpResult.getCode() == INTERCEPT_SUCCESS)
                 || (httpResult.getCode() == HttpStatus.STATUS_CODE_SUCCESS)) {
+            //如果报文不合法
             if (httpResult.getData() == null) {
                 //获取到拦截失败后的对象描述
                 //此处需要进行统一异常拦截
@@ -86,7 +93,7 @@ public class HttpResponseInterceptor implements Interceptor {
             AccessTokenData accessTokenData = JSONObject.parseObject(data, AccessTokenData.class);
             if (!TextUtils.isEmpty(accessTokenData.getToken())) {
                 TokenManager.saveToken(accessTokenData.getToken());
-                return  new Response.Builder()
+                return new Response.Builder()
                         .request(request)
                         .protocol(Protocol.HTTP_1_1)
                         .code(HttpStatus.STATUS_CODE_SUCCESS)
@@ -111,17 +118,6 @@ public class HttpResponseInterceptor implements Interceptor {
                     .body(ResponseBody.create(MediaType.parse("application/json"), resultData))
                     .build();
 
-        }
-        //此处需要进行统一异常拦截
-        if((httpResult.getCode() == INTERCEPT_SESSION_EXPIR)
-                || (httpResult.getCode() == INTERCEPT_SESSION_FAIL)){
-            try {
-                BRouter.getInstance().build(SESSION_MODULE).navigation();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return response;
         }
         throw new BristuaApiException(httpResult.getMsg(), httpResult.getCode());
     }
