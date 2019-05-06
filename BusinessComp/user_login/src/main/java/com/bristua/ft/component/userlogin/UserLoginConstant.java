@@ -24,7 +24,17 @@ public class UserLoginConstant {
     /**
      * 唤起微信登录模组
      */
-    public  final static String WX_AWAKEN_MODULE="wxawaken";
+    public  final static String WX_METHOD_WAKEN="wxawaken";
+
+    /**
+     * 获取用户信息
+     */
+    public  final static String USER_METHOD_INFO="getUserInfo";
+
+    /**
+     * 绑定用户手机号
+     */
+    public  final static String USER_METHOD_BINDMOBILE="bindUserMobile";
     /**
      * 手机号
      */
