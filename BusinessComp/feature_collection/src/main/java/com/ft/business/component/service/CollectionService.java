@@ -20,6 +20,7 @@ import com.wc.feature_collection.R;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -43,25 +44,26 @@ public class CollectionService {
         }
         ICollectionApi restApi = retrofit.create(ICollectionApi.class);
         final String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.shopcollection_error_http), 500, null);
-        Disposable disposable = restApi.goodsCollection(goodsEvaluateWrapper.getGoodsId())
+        restApi.goodsCollection(goodsEvaluateWrapper.getGoodsId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
+                .subscribe(new DisposableObserver<String>() {
+
                     @Override
-                    public void accept(String result) {
-                        AndroidRxManager.clear();
+                    public void onNext(String result) {
                         pResult.success(result, 500, null);
                     }
-                }, new Consumer<Throwable>() {
+
                     @Override
-                    public void accept(Throwable throwable) {
-                        AndroidRxManager.clear();
+                    public void onError(Throwable e) {
                         pResult.success(errorTip, 500, null);
                     }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
                 });
-        AndroidRxManager.addDisposable(disposable);
-
-
     }
 
 
