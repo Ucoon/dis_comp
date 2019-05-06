@@ -14,12 +14,14 @@ import com.bristua.ft.comp.rebate.R;
 import com.bristua.ft.comp.rebate.restapi.IQueryFirendConsumeApi;
 import com.bristua.ft.comp.rebate.restapi.IQueryUserConsumeApi;
 import com.bristua.ft.comp.rebate.wrapper.ConsumerWrapper;
+import com.bristua.ft.comp.rebate.wrapper.RebateResultWrapper;
 import com.bristua.ft.protocol.ProtocolFactory;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -45,14 +47,13 @@ public class UserConsumeService {
             return;
         }
         IQueryUserConsumeApi restApi = retrofit.create(IQueryUserConsumeApi.class);
-        final Disposable disposable = restApi.queryUserConsume()
+     restApi.queryUserConsume()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
+                .subscribe(new DisposableObserver<String>() {
+
                     @Override
-                    public void accept(String result) {
-                        AndroidRxManager.clear();
-                        //此处我自己解析了，
+                    public void onNext(String result) {
                         if(TextUtils.isEmpty(result)){
                             String errorTip = ProtocolFactory.convertToJson("", 200, null);
                             pResult.success(errorTip,500,null);
@@ -62,16 +63,17 @@ public class UserConsumeService {
                         String flutterResult = ProtocolFactory.convertToJson("", 200, wrapper);
                         pResult.success(flutterResult,200,null);
                     }
-                }, new Consumer<Throwable>() {
+
                     @Override
-                    public void accept(Throwable throwable) {
-                        AndroidRxManager.clear();
+                    public void onError(Throwable throwable) {
                         String errorTip = ProtocolFactory.convertToJson(throwable.getLocalizedMessage(), 500, null);
                         pResult.success(errorTip,500,null);
                     }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
                 });
-
-        AndroidRxManager.addDisposable(disposable);
-
     }
 }
