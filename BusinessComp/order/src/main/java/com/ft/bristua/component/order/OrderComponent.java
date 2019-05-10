@@ -11,11 +11,13 @@ import com.bristua.framework.define.router.IRouteMeta;
 import com.ft.bristua.component.order.business.OrderBusiness;
 import com.ft.bristua.component.order.business.OrderCancelBusiness;
 import com.ft.bristua.component.order.business.OrderCommentBusiness;
+import com.ft.bristua.component.order.business.OrderConfirmBusiness;
 import com.ft.bristua.component.order.business.OrderDetailBusiness;
 import com.ft.bristua.component.order.business.OrderSubmitBusiness;
 import com.ft.bristua.component.order.domain.DomainFactory;
 import com.ft.bristua.component.order.domain.OrderCancelDomain;
 import com.ft.bristua.component.order.domain.OrderCommentDomain;
+import com.ft.bristua.component.order.domain.OrderConfirmDomain;
 import com.ft.bristua.component.order.domain.OrderDetailDomain;
 import com.ft.bristua.component.order.domain.OrderSubmitDomain;
 import com.ft.bristua.component.order.entity.OrderCancelEntity;
@@ -45,7 +47,7 @@ public class OrderComponent extends BaseComponent implements IComponent {
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_SUBMIT,new OrderSubmitBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METGOD_ORDER_DETAIL,new OrderDetailBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelBusiness());
-        ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_CONFIRM,new OrderCancelBusiness());
+        ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_CONFIRM,new OrderConfirmBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_COMMENT,new OrderCommentBusiness());
         ManagerFactory.getInstance().putFactory(OrderConstants.METHOD_ORDER_DETAIL,new OrderDetailBusiness());
 
@@ -59,7 +61,7 @@ public class OrderComponent extends BaseComponent implements IComponent {
         DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_CANCEL,new OrderCancelDomain());
 
         OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_CONFIRM,new OrderCancelEntity());
-        DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_CONFIRM,new OrderCancelDomain());
+        DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_CONFIRM,new OrderConfirmDomain());
 
         OrderRepository.getInstance().putEntity(OrderConstants.METHOD_ORDER_COMMENT,new OrderCommentEntity());
         DomainFactory.getInstance().putDomain(OrderConstants.METHOD_ORDER_COMMENT,new OrderCommentDomain());

@@ -25,7 +25,7 @@ import retrofit2.Retrofit;
  */
 public class OrderConfirmService {
 
-    public static void cancel(@NonNull OrderCancelWrapper pWrapper, @NonNull final IFlutterResult pResult) {
+    public static void confirm(@NonNull OrderCancelWrapper pWrapper, @NonNull final IFlutterResult pResult) {
         AndroidRxManager.clear();
         AppContext appContext = AppConfig.getInstance().getAppContext();
         Context context = appContext.getContext();
@@ -37,7 +37,7 @@ public class OrderConfirmService {
             return;
         }
         IOrderApi restApi = retrofit.create(IOrderApi.class);
-        Disposable disposable = restApi.cancel(pWrapper.getOrderId())
+        Disposable disposable = restApi.confirm(pWrapper.getOrderId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {
