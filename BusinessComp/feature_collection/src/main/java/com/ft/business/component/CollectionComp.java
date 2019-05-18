@@ -12,6 +12,7 @@ import com.ft.business.component.business.AllCollectionBusiness;
 import com.ft.business.component.business.CollectionBuisiness;
 import com.ft.business.component.business.GoodsCollectionBusiness;
 import com.ft.business.component.domain.AllCollectionDomain;
+import com.ft.business.component.domain.CancelCollectionDomain;
 import com.ft.business.component.domain.CollectionDomainFactory;
 import com.ft.business.component.domain.GoodsCollectionDomain;
 import com.ft.business.component.entity.AllCollectionEntity;
@@ -49,6 +50,11 @@ public class CollectionComp implements IComponent {
         ManagerFactory.getInstance().putFactory(CollectionConstant.ALL_COLLECTION, new AllCollectionBusiness());
         CollectionDomainFactory.getFactory().putDomain(CollectionConstant.ALL_COLLECTION, new AllCollectionDomain());
         CollectionRepository.getFactory().putEntity(CollectionConstant.ALL_COLLECTION, new AllCollectionEntity());
+
+        //取消商品收藏
+        ManagerFactory.getInstance().putFactory(CollectionConstant.CANCEL_COLLECTION, new GoodsCollectionBusiness());
+        CollectionDomainFactory.getFactory().putDomain(CollectionConstant.CANCEL_COLLECTION, new CancelCollectionDomain());
+        CollectionRepository.getFactory().putEntity(CollectionConstant.CANCEL_COLLECTION, new GoodsCollectionEntity());
     }
 
     @Override

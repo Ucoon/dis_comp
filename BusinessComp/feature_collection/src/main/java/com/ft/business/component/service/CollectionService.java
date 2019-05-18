@@ -51,7 +51,7 @@ public class CollectionService {
 
                     @Override
                     public void onNext(String result) {
-                        pResult.success(result, 500, null);
+                        pResult.success(result, 200, null);
                     }
 
                     @Override
@@ -112,4 +112,45 @@ public class CollectionService {
 
 
     }
+
+    /**
+     * 取消商品收藏
+     *
+     * @param pResult
+     */
+    public static void cancelCollection(@NonNull final IFlutterResult pResult, GoodsCollectionWrapper goodsEvaluateWrapper) {
+        AndroidRxManager.clear();
+        AppContext appContext = AppConfig.getInstance().getAppContext();
+        Context context = appContext.getContext();
+        //执行retrofit 下的rx模式
+        Retrofit retrofit = HttpsModule.getInstance().getRetrofit();
+        if (retrofit == null) {
+            String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.shopcollection_error_http), 500, null);
+            pResult.success(errorTip, 500, null);
+            return;
+        }
+        ICollectionApi restApi = retrofit.create(ICollectionApi.class);
+        final String errorTip = ProtocolFactory.convertToJson(context.getResources().getString(R.string.shopcollection_error_http), 500, null);
+        restApi.cancelCollection(goodsEvaluateWrapper.getGoodsId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<String>() {
+
+                    @Override
+                    public void onNext(String result) {
+                        pResult.success(result, 200, null);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        pResult.success(errorTip, 500, null);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
 }

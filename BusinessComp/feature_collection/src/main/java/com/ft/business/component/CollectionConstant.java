@@ -18,4 +18,8 @@ public class CollectionConstant {
      * 获取所有收藏模组
      */
     public final static String ALL_COLLECTION = "all_collection";
+    /**
+     * 用户取消收藏商品模组
+     */
+    public final static String CANCEL_COLLECTION = "cancel_collection";
 }

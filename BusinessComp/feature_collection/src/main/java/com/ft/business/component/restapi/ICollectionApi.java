@@ -27,7 +27,16 @@ public interface ICollectionApi {
      *
      * @return
      */
-    @POST("/mall/api/api/user/collection/goods/{pageNo}/{pageSize}")
+    @POST("/mall/api/user/collection/goods/{pageNo}/{pageSize}")
     @Headers("Content-Type:application/json")
     Observable<String> allCollection(@Path("pageNo") int pageNo, @Path("pageSize") int pageSize);
+
+    /**
+     * 获取所有收藏
+     *
+     * @return
+     */
+    @POST("/mall/api/cancel/goods/collection/{goodsId}")
+    @Headers("Content-Type:application/json")
+    Observable<String> cancelCollection(@Path("goodsId") String goodsId);
 }
