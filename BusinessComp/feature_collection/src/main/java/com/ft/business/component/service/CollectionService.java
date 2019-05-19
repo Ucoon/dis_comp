@@ -51,6 +51,9 @@ public class CollectionService {
 
                     @Override
                     public void onNext(String result) {
+                        if (TextUtils.isEmpty(result)) {
+                            result = ProtocolFactory.convertToJson("商品收藏成功", 200, null);
+                        }
                         pResult.success(result, 200, null);
                     }
 
@@ -138,6 +141,9 @@ public class CollectionService {
 
                     @Override
                     public void onNext(String result) {
+                        if (TextUtils.isEmpty(result)) {
+                            result = ProtocolFactory.convertToJson("取消收藏成功", 200, null);
+                        }
                         pResult.success(result, 200, null);
                     }
 
